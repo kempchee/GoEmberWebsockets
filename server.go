@@ -5,7 +5,14 @@ import (
 	"log"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
+	"io/ioutil"
+	"github.com/moovweb/gokogiri"
+	"github.com/moovweb/gokogiri/xpath"
+	"encoding/json"
+	"fmt"
 )
+
+
 
 var upgrader = websocket.Upgrader{
     ReadBufferSize:  1024,
@@ -29,14 +36,54 @@ func SocketsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 }
 
-func KittensHandler(w http.ResponseWriter, r *http.Request) {
+func LinksHandler(w http.ResponseWriter, r *http.Request) {
+	type Link struct{
+		Url string `json:"url"`
+		Id int `json:"id"`
+	}
+	type Links struct {
+			Links []Link `json:"links"`
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(`{"kittens": [
-		{"id": 1, "name": "Bobby", "picture": "http://placekitten.com/300/200"},
-		{"id": 2, "name": "Wally", "picture": "http://placekitten.com/300/200"},
-		{"id": 3, "name": "Sammy", "picture": "http://placekitten.com/300/200"},
-		{"id": 4, "name": "Dopey", "picture": "http://placekitten.com/300/200"}
-	]}`))
+	resp,err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
+	//resp,err := http.Get("http://www.irs.gov/pub/irs-dft/i8962--dft.pdf")
+	if err!=nil{
+		panic(err)
+	}
+
+	body, newError :=ioutil.ReadAll(resp.Body)
+	if newError!=nil{
+		panic(err)
+	}
+	// write whole the body
+	err = ioutil.WriteFile("output.txt", body, 0644)
+	if err != nil {
+			panic(err)
+	}
+
+	doc, _ := gokogiri.ParseHtml([]byte(body))
+	rowsFinder := xpath.Compile("//table[@class='picklist-dataTable']/tr")
+	linkFinder:=xpath.Compile("//td/a")
+	//fmt.Println(doc.Root().String())
+	rows, _ := doc.Root().Search(rowsFinder)
+	var links []string
+	for i:=0;i<len(rows);i++{
+		rowHtml,_:=gokogiri.ParseHtml([]byte(rows[i].String()))
+		link,_:=rowHtml.Search(linkFinder)
+		if len(link)>0{
+			links=append(links,link[0].String())
+		}
+	}
+	var newLinks []Link
+	for i:=0;i<len(links);i++{
+
+		newLinks=append(newLinks,Link{links[i],i})
+	}
+	structLinks:=Links{newLinks}
+	jsonLinks,_:=json.Marshal(structLinks)
+	fmt.Println(jsonLinks)
+	w.Write([]byte(jsonLinks))
 }
 
 func main() {
@@ -44,7 +91,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/sockets",SocketsHandler)
-	r.HandleFunc("/kittens", KittensHandler).Methods("GET")
+	r.HandleFunc("/links", LinksHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
   http.Handle("/", r)
 

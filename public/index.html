@@ -17,12 +17,7 @@
 <ul class="thumbnails">
 {{#each controller}}
   <li class="span3">
-    <div class="thumbnail">
-      <img {{bind-attr src="picture"}}/>
-      <div class="caption">
-        <h3>{{name}}</h3>
-      </div>
-    </div>
+    {{url}}
   </li>
 {{/each}}
 </ul>

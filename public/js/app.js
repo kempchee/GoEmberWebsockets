@@ -8,10 +8,11 @@ App.ApplicationAdapter = DS.ActiveModelAdapter.extend({
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({
 
 });
-
-  App.Kitten = DS.Model.extend({
-    name: DS.attr('string'),
-    picture: DS.attr('string')
+var attr=DS.attr;
+  App.Link = DS.Model.extend({
+    url:attr()
+  //  link: DS.attr('string'),
+  //  picture: DS.attr('string')
   });
 
   App.Router.map(function() {
@@ -20,7 +21,16 @@ App.ApplicationSerializer = DS.ActiveModelSerializer.extend({
 
   App.IndexRoute = Ember.Route.extend({
     model: function() {
-      return this.store.find("kitten")
+      //var array;
+    //  return $.ajax({
+      //  url:"/links",
+      //  method:"GET",
+        //success:function(data){
+        //  console.log(data.links)
+        //  return data
+        //}
+      //})
+      return this.store.find("link")
     }
   });
 
