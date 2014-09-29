@@ -12,18 +12,41 @@
   {{outlet}}
 </div>
 </script>
-
+<h3 class="text-center">Updates</h3>
 <script type="text/x-handlebars" id="index">
-<ul class="thumbnails">
-{{#each controller}}
-  <li class="span3">
-    {{url}}
+<ul class="list-group ">
+  <li class="list-group-item col-xs-1">
+    <b>Name</b>
   </li>
-{{/each}}
+  <li class="list-group-item col-xs-9">
+    <b>Description</b>
+  </li>
+  <li class="list-group-item col-xs-1">
+    <b>R. Date</b>
+  </li>
+  <li class="list-group-item col-xs-1">
+    <b>P. Date</b>
+  </li>
+  {{#each controller}}
+    <li class="list-group-item col-xs-1">
+      <a href="http://{{unbound url}}">View</a>
+    </li>
+    <li class="list-group-item col-xs-9">
+      {{description}}
+    </li>
+    <li class="list-group-item col-xs-1">
+      {{revisionDate}}
+    </li>
+    <li class="list-group-item col-xs-1">
+      {{postedDate}}
+    </li>
+  {{/each}}
 </ul>
+<div class="clearfix"></div>
+<br>
 
-<input id="myInput"></input><br><br>
-<div class="btn btn-primary">Submit</div>
+<div class="btn btn-primary" {{action "loadUpdates"}}>Load Updates
+</div>
 </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>

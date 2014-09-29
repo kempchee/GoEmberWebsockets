@@ -16,7 +16,7 @@
 <html>
 	<head>		
               
-		<script src="/app/picklist/scripts/common.js;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" type="text/javascript"></script>
+		<script src="/app/picklist/scripts/common.js" type="text/javascript"></script>
 
 
 
@@ -110,7 +110,7 @@
 
 
 <div class=picklistFormDTF>
-<form method="GET" action="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__"/>
+<form method="GET" action="/app/picklist/list/draftTaxForms.html"/>
 <table>
 <tr>
 	<td><b><label for="searchFor">Find</label></b></td>
@@ -202,21 +202,21 @@ Show per page:&nbsp;
 
 	
 	
-		<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?resultsPerPage=50&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">50</a>
+		<a href="/app/picklist/list/draftTaxForms.html?resultsPerPage=50&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">50</a>
 	
 
 
 
 	
 	
-		<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?resultsPerPage=100&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">100</a>
+		<a href="/app/picklist/list/draftTaxForms.html?resultsPerPage=100&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">100</a>
 	
 
 
 
 	
 	
-		<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?resultsPerPage=200&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">200</a>
+		<a href="/app/picklist/list/draftTaxForms.html?resultsPerPage=200&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">200</a>
 	
 
 
@@ -338,7 +338,7 @@ Show per page:&nbsp;
 
 
     |	
-    <a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true">Next &raquo;</a>&nbsp;
+    <a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true">Next &raquo;</a>&nbsp;
 
 
 
@@ -380,19 +380,19 @@ Show per page:&nbsp;
         
        	
         
-        <a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+        <a href="/app/picklist/list/draftTaxForms.html?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
 		"><span class="picklistColumnHeader">Product Number</span></a>
 			
         		
 				
-					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" alt="Not sorted" title="Not sorted" /></a>
+					<a href="/app/picklist/list/draftTaxForms.html?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif" alt="Not sorted" title="Not sorted" /></a>
 				
 			
 
         
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsFormNumber.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsFormNumber.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__' alt="Help on Form Number" title="Help on Form Number" />
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsFormNumber.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsFormNumber.html" >
+          <img src='/app/picklist/images/questionMark.gif' alt="Help on Form Number" title="Help on Form Number" />
         </a>
       </b>
     </th>
@@ -404,19 +404,19 @@ Show per page:&nbsp;
         
        	
 
-        <a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+        <a href="/app/picklist/list/draftTaxForms.html?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
 			"><span class="picklistColumnHeader">Title</span></a>
 			
         		
 				
-					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" alt="Not sorted" title="Not sorted" /></a>
+					<a href="/app/picklist/list/draftTaxForms.html?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif" alt="Not sorted" title="Not sorted" /></a>
 				
 			
 
         
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsTitle.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsTitle.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__' alt="Help on Title" title="Help on Title" />
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsTitle.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsTitle.html" >
+          <img src='/app/picklist/images/questionMark.gif' alt="Help on Title" title="Help on Title" />
         </a>
        </b>
     </th>
@@ -428,18 +428,18 @@ Show per page:&nbsp;
         
        	
 
-       	<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+       	<a href="/app/picklist/list/draftTaxForms.html?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
 		"><span class="picklistColumnHeader">Revision Date</span></a>
 			
         		
 				
-       				<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" alt="Not sorted" title="Not sorted" /></a>
+       				<a href="/app/picklist/list/draftTaxForms.html?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif" alt="Not sorted" title="Not sorted" /></a>
 				
 			
         
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsCurrentYearRevDate.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsCurrentYearRevDate.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__' alt="Help on Revision Date" title="Help on Revision Date" />
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsCurrentYearRevDate.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsCurrentYearRevDate.html" >
+          <img src='/app/picklist/images/questionMark.gif' alt="Help on Revision Date" title="Help on Revision Date" />
         </a>
        </b>
     </th>
@@ -460,24 +460,184 @@ Show per page:&nbsp;
           
        	
 
-       	<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+       	<a href="/app/picklist/list/draftTaxForms.html?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
 		"><span class="picklistColumnHeader">Posted Date</span></a>
 			
         		
-					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/descendingArrows.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" alt="Sorted Descending" title="Sorted Descending" /></a>
+					<a href="/app/picklist/list/draftTaxForms.html?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/descendingArrows.gif" alt="Sorted Descending" title="Sorted Descending" /></a>
 				
 				
 			
         
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsPostedDate.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsPostedDate.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__' alt="Help on Posted Date" title="Help on Posted Date" />
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsPostedDate.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsPostedDate.html" >
+          <img src='/app/picklist/images/questionMark.gif' alt="Help on Posted Date" title="Help on Posted Date" />
         </a>
        </b>
     </th>
   </tr>
  
 
+
+	
+		<tr class="even">
+	
+    
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i1065bsk--dft.pdf ">Inst 1065-B (Schedule K-1)</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Schedule K-1 (Form 1065-B), Partner&#039;s Share of Income (Loss) From an Electing Large Partnership
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2014
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+    
+		<tr class="odd">
+	
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i1040sse--dft.pdf ">Inst 1040 (Schedule SE)</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Schedule SE (Form 1040), Self-Employment Tax
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2014
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+		<tr class="even">
+	
+    
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i1099msc--dft.pdf ">Inst 1099-MISC</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Form 1099-MISC, Miscellaneous Income
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2015
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+    
+		<tr class="odd">
+	
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/f982--dft.pdf ">Form 982</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Reduction of Tax Attributes Due to Discharge of Indebtedness (and Section 1082 Basis Adjustment)
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		0115
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+		<tr class="even">
+	
+    
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i1099int--dft.pdf ">Inst 1099-INT and 1099-OID</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Forms 1099-INT and 1099-OID, Interest Income and Original Issue Discount
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2015
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+    
+		<tr class="odd">
+	
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i1099div--dft.pdf ">Inst 1099-DIV</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Form 1099-DIV
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2015
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+		<tr class="even">
+	
+    
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i3468--dft.pdf ">Inst 3468</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Form 3468, Investment Credit
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2014
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+    
+		<tr class="odd">
+	
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i4562--dft.pdf ">Inst 4562</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Form 4562, Depreciation and Amortization
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2014
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
 
 	
 		<tr class="even">
@@ -495,7 +655,7 @@ Show per page:&nbsp;
       		2014
       	</td>
      	<td class="EndCellSpacer">
-     		09/25/2014
+     		09/26/2014
      	</td>     			
 	</tr>
 
@@ -503,6 +663,26 @@ Show per page:&nbsp;
     
 		<tr class="odd">
 	
+	
+		<td class="LeftCellSpacer">
+			<a href="http://www.irs.gov/pub/irs-dft/i8949--dft.pdf ">Inst 8949</a>
+		</td>
+		<td class="MiddleCellSpacer">
+        	Instructions for Form 8949, Sales and other Dispositions of Capital Assets
+      	</td>
+ 
+      	<td class="MiddleCellSpacer">
+      		2014
+      	</td>
+     	<td class="EndCellSpacer">
+     		09/26/2014
+     	</td>     			
+	</tr>
+
+	
+		<tr class="even">
+	
+    
 	
 		<td class="LeftCellSpacer">
 			<a href="http://www.irs.gov/pub/irs-dft/i6765--dft.pdf ">Inst 6765</a>
@@ -520,9 +700,9 @@ Show per page:&nbsp;
 	</tr>
 
 	
-		<tr class="even">
-	
     
+		<tr class="odd">
+	
 	
 		<td class="LeftCellSpacer">
 			<a href="http://www.irs.gov/pub/irs-dft/i8909--dft.pdf ">Inst 8909</a>
@@ -540,9 +720,9 @@ Show per page:&nbsp;
 	</tr>
 
 	
-    
-		<tr class="odd">
+		<tr class="even">
 	
+    
 	
 		<td class="LeftCellSpacer">
 			<a href="http://www.irs.gov/pub/irs-dft/i8845--dft.pdf ">Inst 8845</a>
@@ -556,66 +736,6 @@ Show per page:&nbsp;
       	</td>
      	<td class="EndCellSpacer">
      		09/25/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1099msc--dft.pdf ">Inst 1099-MISC</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 1099-MISC, Miscellaneous Income
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/24/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1099int--dft.pdf ">Inst 1099-INT and 1099-OID</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Forms 1099-INT and 1099-OID, Interest Income and Original Issue Discount
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/24/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1099div--dft.pdf ">Inst 1099-DIV</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 1099-DIV
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/24/2014
      	</td>     			
 	</tr>
 
@@ -859,126 +979,6 @@ Show per page:&nbsp;
      	</td>     			
 	</tr>
 
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1065sk1--dft.pdf ">Inst 1065 (Schedule K-1)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Schedule K-1 (Form 1065), Partner&#039;s Share of Income, Deductions, Credits, etc.
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/17/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i990t--dft.pdf ">Inst 990-T</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 990-T, Exempt Organization Business Income Tax Return (and proxy tax under section 6033(e))
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/17/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1120ssk--dft.pdf ">Inst 1120-S (Schedule K-1)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Schedule K-1 (Form 1120-S), Shareholder&#039;s Share of Income, Deductions, Credits, etc.
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/17/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f1040prh--dft.pdf ">Form 1040 (PR) (Anexo H-PR)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Contribuciones Sobre El Empleo De Empleados Domesticos
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/17/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f8911--dft.pdf ">Form 8911</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Alternative Fuel Vehicle Refueling Property Credit
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/17/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f8907--dft.pdf ">Form 8907</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Nonconventional Source Fuel Credit
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/16/2014
-     	</td>     			
-	</tr>
-
 </table>
 
 	<hr />
@@ -1101,7 +1101,7 @@ Show per page:&nbsp;
 
 
     |	
-    <a href="/app/picklist/list/draftTaxForms.html;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true">Next &raquo;</a>&nbsp;
+    <a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true">Next &raquo;</a>&nbsp;
 
 
 
@@ -1113,7 +1113,7 @@ Show per page:&nbsp;
 
 
 
-<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif;jsessionid=rQnMPEJdo9JtBWvkdeHpCA__' alt="Official Adobe Website" title="Official Adobe Website"/></a>
+<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif' alt="Official Adobe Website" title="Official Adobe Website"/></a>
 <br>
 <a href="/app/scripts/exit.jsp?dest=http://www.adobe.com">Get Adobe &#174; Reader</a>
 
