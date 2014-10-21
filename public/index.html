@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>GoEmber</title>
   <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/master.css">
 </head>
 <body>
 
@@ -15,34 +16,53 @@
 <h3 class="text-center">Updates</h3>
 <script type="text/x-handlebars" id="index">
 <ul class="list-group ">
-  <li class="list-group-item col-xs-1">
+  <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "name"}}>
     <b>Name</b>
   </li>
-  <li class="list-group-item col-xs-9">
+  <li class="list-group-item col-xs-6 table-row-title" {{action "setSortProperty" "description"}}>
     <b>Description</b>
   </li>
-  <li class="list-group-item col-xs-1">
+  <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "revisionDate"}}>
     <b>R. Date</b>
   </li>
-  <li class="list-group-item col-xs-1">
+  <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "postedDate"}}>
     <b>P. Date</b>
   </li>
-  {{#each controller}}
-    <li class="list-group-item col-xs-1">
-      <a href="http://{{unbound url}}">View</a>
+  {{#each visibleList}}
+    <li class="list-group-item col-xs-2">
+      <a href="{{unbound url}}">{{name}}</a>
     </li>
-    <li class="list-group-item col-xs-9">
+    <li class="list-group-item col-xs-6">
       {{description}}
     </li>
-    <li class="list-group-item col-xs-1">
+    <li class="list-group-item col-xs-2">
       {{revisionDate}}
     </li>
-    <li class="list-group-item col-xs-1">
+    <li class="list-group-item col-xs-2">
       {{postedDate}}
     </li>
   {{/each}}
 </ul>
 <div class="clearfix"></div>
+<div class="text-center"><ul class='pagination'>
+    {{#if paginationHash.leftArrow}}
+      <li {{action "decrementPage" currentPage}}><a href="#">&laquo;</a></li>
+    {{/if}}
+    {{#each paginationHash.pages}}
+      {{#if this.[1]}}
+          <li class="active" {{action "changePage" this.[0]}}><a href="#">{{this.[0]}}</a></li>
+          {{else}}
+          <li  {{action "changePage" this.[0]}}><a href="#">{{this.[0]}}</a></li>
+        {{/if}}
+    {{/each}}
+    {{#if paginationHash.rightArrow}}
+      <li {{action "incrementPage" currentPage}}><a href="#">&raquo;</a></li>
+    {{/if}}
+
+ </ul>
+
+ </div>
+
 <br>
 
 <div class="btn btn-primary" {{action "loadUpdates"}}>Load Updates

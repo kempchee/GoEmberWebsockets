@@ -23,6 +23,7 @@ var (
 
 type Link struct{
 	Url string `bson:"Url" json:"url"`
+	Name string `bson:"Name" json:"name"`
 	Description string `bson:"Description" json:"description"`
 	RevisionDate string `bson:"RevisionDate" json:"revisionDate"`
 	PostedDate string `bson:"PostedDate" json:"postedDate"`
@@ -73,6 +74,7 @@ func main() {
 	r.HandleFunc("/sockets",SocketsHandler)
 	r.HandleFunc("/links", getLinksHandler).Methods("GET")
 	r.HandleFunc("/getLinks", getLinksHandler).Methods("GET")
+	r.HandleFunc("/updateLinks",UpdateLinksHandler).Methods("POST")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
   http.Handle("/", r)
 
@@ -105,9 +107,7 @@ func getLinksHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func LinksHandler(w http.ResponseWriter, r *http.Request) {
-
-
+func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	resp,err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
 	//resp,err := http.Get("http://www.irs.gov/pub/irs-dft/i8962--dft.pdf")
@@ -127,6 +127,7 @@ func LinksHandler(w http.ResponseWriter, r *http.Request) {
 
 	doc, _ := gokogiri.ParseHtml([]byte(body))
 	rowsFinder := xpath.Compile("//table[@class='picklist-dataTable']/tr")
+	nameFinder:=xpath.Compile("//td/a/text()")
 	linkFinder:=xpath.Compile("//td/a/@href")
 	descriptionFinder:=xpath.Compile("//td[2]/text()")
 	revisionDateFinder:=xpath.Compile("//td[3]/text()")
@@ -134,21 +135,28 @@ func LinksHandler(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println(doc.Root().String())
 	rows, _ := doc.Root().Search(rowsFinder)
 	var links []string
+	var names []string
 	var descriptions []string
 	var revisionDates []string
 	var postedDates []string
 	for i:=0;i<len(rows);i++{
 		rowHtml,_:=gokogiri.ParseHtml([]byte(rows[i].String()))
-
+		fmt.Println(rowHtml)
 		link,_:=rowHtml.Search(linkFinder)
+		name,_:=rowHtml.Search(nameFinder)
 		description,_:=rowHtml.Search(descriptionFinder)
 		revisionDate,_:=rowHtml.Search(revisionDateFinder)
 		postedDate,_:=rowHtml.Search(postedDateFinder)
-		if len(link)>0{
+		if len(links)>0{
 			url,_:=url.Parse(link[0].String())
-			links=append(links,"http://www.irs.gov/"+url.Path)
+			links=append(links,"http://www.irs.gov"+url.Path)
 		}else{
 			links=append(links,"")
+		}
+		if len(names)>0{
+			names=append(names,name[0].String())
+		}else{
+			names=append(names,"")
 		}
 		if len(descriptions)>0{
 			descriptions=append(descriptions,description[0].String())
@@ -170,12 +178,17 @@ func LinksHandler(w http.ResponseWriter, r *http.Request) {
 	for i:=0;i<len(links);i++{
 		if links[i]==""{
 			}else{
-			newLinks=append(newLinks,Link{links[i],descriptions[i],revisionDates[i],postedDates[i],bson.NewObjectId()})
+			newLinks=append(newLinks,Link{links[i],names[i],descriptions[i],revisionDates[i],postedDates[i],bson.NewObjectId()})
 		}
-
+	}
+	for i:=0;i<len(newLinks);i++{
+		count,error:=formUpdatesCollection.Find(bson.M{"Name":newLinks[i].Name,"PostedDate":newLinks[i].PostedDate}).Count()
+		if(count==0){
+			formUpdatesCollection.Insert(&newLinks[i])
+		}else{
+		}
 	}
 	structLinks:=Links{newLinks}
 	jsonLinks,_:=json.Marshal(structLinks)
-	fmt.Println(jsonLinks)
 	w.Write([]byte(jsonLinks))
 }
