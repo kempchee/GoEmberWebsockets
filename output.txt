@@ -9,6 +9,7 @@
 
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -16,12 +17,11 @@
 <html>
 	<head>		
               
-		<script src="/app/picklist/scripts/common.js" type="text/javascript"></script>
+		<script src="/app/picklist/scripts/common.js;jsessionid=1nkulfPmMxoXbmFolTmZsw__" type="text/javascript"></script>
 
 
 
-<title>Draft Tax Forms</title>
-
+<title>Forms and Instructions (PDF)</title>
 
 
 
@@ -66,7 +66,8 @@
 
 
 <div id="picklistContentPane">
-<div class="pageLabel">Draft Tax Forms</div>
+
+<div class="pageLabel">Forms and Instructions (PDF)</div>
 
 <div class="instructionsBaseIRS">
 	<table>
@@ -109,16 +110,20 @@
 
 
 
-<div class=picklistFormDTF>
-<form method="GET" action="/app/picklist/list/draftTaxForms.html"/>
+<div class="picklistFormFrmInstr">
+	<form method="GET" action="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__"/>
+		
+		
 <table>
 <tr>
+
 	<td><b><label for="searchFor">Find</label></b></td>
 	<td><INPUT ID="searchFor" TYPE=text VALUE="" NAME="value" SIZE="20" maxlength="30"></td>
 	<td><b><label for="criteria">in</label></b></td>
 	<td>
+			
+			
 			<select name="criteria" >
-
 			
 									
 				
@@ -151,7 +156,7 @@
 	</td>
 </tr>
 </table>
-</form>
+	</form>
 </div>
 
 
@@ -159,194 +164,11 @@
 
 
 
-	<div class="searchFields">
-		
 
-<hr>
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-<table class="searchFieldsTable" >
-<tr>
-
-<th class="ShowByColumn" scope="col"  style="width:33%">
-
-  
-      1 - 25 of 730 files
-  
-  
-
-</th>
-
-<th class="NumResultsDisplayed" scope="col" style="width:33%">
-Show per page:&nbsp;
-
-
-	
-		<b>25</b>
-	
-	
-
-
-
-	
-	
-		<a href="/app/picklist/list/draftTaxForms.html?resultsPerPage=50&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">50</a>
-	
-
-
-
-	
-	
-		<a href="/app/picklist/list/draftTaxForms.html?resultsPerPage=100&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">100</a>
-	
-
-
-
-	
-	
-		<a href="/app/picklist/list/draftTaxForms.html?resultsPerPage=200&amp;sortColumn=postedDate&amp;indexOfFirstRow=0&amp;criteria=&amp;value=&amp;isDescending=true">200</a>
-	
-
-
-</th>
-
-
-
-
-<th class="NumPageViewed" scope="col" style="width:33%">
-	
-
-
-
-
-
-
-
-
-
-
-
-   	&laquo; Previous&nbsp;|
-
-
-
-
-
-	
-	
-		
-			<b>1</b>
-		
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>2</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=50&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>3</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=75&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>4</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=100&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>5</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=125&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>6</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=150&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>7</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=175&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>8</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=200&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>9</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=225&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>10</a>
-		 
-	
-
-
-
-
-
-    |	
-    <a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true">Next &raquo;</a>&nbsp;
-
-
-
-
-</th>
-</tr>
-</table>
+	<div class="noResults">
+		<hr>
 	</div>
+
 
 
 
@@ -375,78 +197,7 @@ Show per page:&nbsp;
     <th class="FormNumber" scope="col">
       <b>
         
-        
-		
-        
-       	
-        
-        <a href="/app/picklist/list/draftTaxForms.html?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-		"><span class="picklistColumnHeader">Product Number</span></a>
-			
-        		
-				
-					<a href="/app/picklist/list/draftTaxForms.html?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif" alt="Not sorted" title="Not sorted" /></a>
-				
-			
-
-        
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsFormNumber.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsFormNumber.html" >
-          <img src='/app/picklist/images/questionMark.gif' alt="Help on Form Number" title="Help on Form Number" />
-        </a>
-      </b>
-    </th>
-    <th class="Title" scope="col">
-      <b>
-        
-        
-		
-        
-       	
-
-        <a href="/app/picklist/list/draftTaxForms.html?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-			"><span class="picklistColumnHeader">Title</span></a>
-			
-        		
-				
-					<a href="/app/picklist/list/draftTaxForms.html?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif" alt="Not sorted" title="Not sorted" /></a>
-				
-			
-
-        
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsTitle.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsTitle.html" >
-          <img src='/app/picklist/images/questionMark.gif' alt="Help on Title" title="Help on Title" />
-        </a>
-       </b>
-    </th>
-    <th class="CurrentYear" scope="col">
-      <b>
-        
-        
-		
-        
-       	
-
-       	<a href="/app/picklist/list/draftTaxForms.html?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-		"><span class="picklistColumnHeader">Revision Date</span></a>
-			
-        		
-				
-       				<a href="/app/picklist/list/draftTaxForms.html?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif" alt="Not sorted" title="Not sorted" /></a>
-				
-			
-        
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsCurrentYearRevDate.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsCurrentYearRevDate.html" >
-          <img src='/app/picklist/images/questionMark.gif' alt="Help on Revision Date" title="Help on Revision Date" />
-        </a>
-       </b>
-    </th>
-    <th class="DateColumn" scope="col">
-      <b>
-              
-        
+ 	    
 		
         
        		
@@ -454,666 +205,130 @@ Show per page:&nbsp;
           
           
           
-            
- 			
-            
-          
+       	
+        
+        <a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+		"><span class="picklistColumnHeader">Product Number</span></a>
+			
+        		
+					<a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+					"><img src="/app/picklist/images/ascendingArrows.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__" alt="Sorted Ascending" title="Sorted Ascending" /></a>
+				
+				
+			
+
+	    
+		<a onclick="returnLink('/app/picklist/help/formsInstructionsFormNumber.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsFormNumber.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__' alt="Help on Form Number" title="Help on Form Number" />
+		</a>
+      </b>
+    </th>
+    <th class="Title" scope="col">
+      <b>
+        
+	    
+		
+        
+       	
+        <a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+		"><span class="picklistColumnHeader">Title</span></a>
+			
+        		
+				
+					<a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__" alt="Not sorted" title="Not sorted" /></a>
+				
+			
+	    
+		<a onclick="returnLink('/app/picklist/help/formsInstructionsTitle.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsTitle.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__' alt="Help on Form Title" title="Help on Form Title" />
+		</a>
+       </b>
+    </th>
+    <th class="CurrentYear" scope="col">
+      <b>
+        
+	    
+		
+        
        	
 
-       	<a href="/app/picklist/list/draftTaxForms.html?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+       	<a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+		"><span class="picklistColumnHeader">Revision Date</span></a>
+			
+        		
+				
+					<a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__" alt="Not sorted" title="Not sorted" /></a>
+				
+			
+
+	    
+		<a onclick="returnLink('/app/picklist/help/formsInstructionsCurrentYearRevDate.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsCurrentYearRevDate.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__' alt="Help on Revision Date" title="Help on Revision Date" />
+		</a>
+       </b>
+    </th>
+    <th class="DateColumn" scope="col">
+      <b>
+              
+	    
+		
+        
+       	
+		
+       	<a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
 		"><span class="picklistColumnHeader">Posted Date</span></a>
 			
         		
-					<a href="/app/picklist/list/draftTaxForms.html?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/descendingArrows.gif" alt="Sorted Descending" title="Sorted Descending" /></a>
 				
+					<a href="/app/picklist/list/formsInstructions.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__" alt="Not sorted" title="Not sorted" /></a>
 				
 			
-        
-		<a onclick="returnLink('/app/picklist/help/draftTaxFormsPostedDate.html', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsPostedDate.html" >
-          <img src='/app/picklist/images/questionMark.gif' alt="Help on Posted Date" title="Help on Posted Date" />
-        </a>
+
+	    
+		<a onclick="returnLink('/app/picklist/help/formsInstructionsPostedDate.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsPostedDate.html;jsessionid=1nkulfPmMxoXbmFolTmZsw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__' alt="Help on Posted Date" title="Help on Posted Date" />
+		</a>
        </b>
     </th>
   </tr>
  
 
 
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f1094c--dft.pdf ">Form 1094-C</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Transmittal of Employer-Provided Health Insurance Offer and Coverage Information Return
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/15/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f1095b--dft.pdf ">Form 1095-B</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Health Coverage
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/15/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f1095c--dft.pdf ">Form 1095-C</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Employer Provided Health Insurance Offer and Coverage
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/15/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f943a--dft.pdf ">Form 943-A</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Agricultural Employer&#039;s Record of Federal Tax Liability
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0215
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/14/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f945a--dft.pdf ">Form 945-A</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Annual Record of Federal Tax Liability
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0215
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/14/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1099gi--dft.pdf ">Inst 1099 General Instructions</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	General Instructions for Certain Information Returns (Forms 1097, 1098, 1099, 3921, 3922, 5498, and W-2G)
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2015
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/14/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f1099b--dft.pdf ">Form 1099-B</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Proceeds from Broker and Barter Exchange Transactions (Info Copy Only)
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2015
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/14/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i941ss--dft.pdf ">Inst 941-SS</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 941-SS, Employer&#039;s Quarterly Federal Tax Return - American Samoa, Guam, the Commonwealth of the Northern Mariana Islands, and the U.S. Virgin Islands
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0115
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/08/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i941--dft.pdf ">Inst 941</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 941, Employer&#039;s Quarterly Federal Tax Return
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0115
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/08/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1040gi--dft.pdf ">Inst 1040 (General Inst.)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 1040, U.S. Individual Income Tax Return
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/08/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i8379--dft.pdf ">Inst 8379</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 8379, Injured Spouse Allocation
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		1114
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/07/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1040sd--dft.pdf ">Inst 1040 (Schedule D)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Schedule D (Form 1040), Capital Gains and Losses
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/07/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f8959--dft.pdf ">Form 8959</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Additional Medicare Tax
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/06/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1099b--dft.pdf ">Inst 1099-B</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 1099-B, Proceeds from Broker and Barter Exchange Transactions
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2015
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/06/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i990--dft.pdf ">Inst 990</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 990, Return of Organization Exempt From Income Tax
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/03/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/fw3cpr--dft.pdf ">Form W-3C (PR)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Transmision de Comprobantes de Retencion Corregidos
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0914
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/03/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1116--dft.pdf ">Inst 1116</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 1116, Foreign Tax Credit (Individual, Estate, or Trust)
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/02/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1040sc--dft.pdf ">Inst 1040 (Schedule C)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Schedule C (Form 1040), Profit or Loss From Business (Sole Proprietorship)
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/02/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1040c--dft.pdf ">Inst 1040-C</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instructions for Form 1040-C, U.S. Departing Alien Income Tax Return
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/02/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1040pr--dft.pdf ">Inst 1040 (PR)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instrucciones para el Formulario 1040-PR, Planilla Para La Declaracion De La Contribucion Federal Sobre El Trabajo Por Cuenta Propia - Puerto Rico
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/01/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f941--dft.pdf ">Form 941</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Employer&#039;s Quarterly Federal Tax Return
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0115
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/01/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f941ss--dft.pdf ">Form 941-SS</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Employer&#039;s Quarterly Federal Tax Return - American Samoa, Guam, the Commonwealth of the Northern Mariana Islands, and the U.S. Virgin Islands
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		0115
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/01/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/f1095a--dft.pdf ">Form 1095-A</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Health Insurance Marketplace Statement
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		10/01/2014
-     	</td>     			
-	</tr>
-
-	
-    
-		<tr class="odd">
-	
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/fw4sp--dft.pdf ">Form W-4 (SP)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Employee&#039;s Withholding Allowance Certificate (Spanish version)
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2015
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/30/2014
-     	</td>     			
-	</tr>
-
-	
-		<tr class="even">
-	
-    
-	
-		<td class="LeftCellSpacer">
-			<a href="http://www.irs.gov/pub/irs-dft/i1040prh--dft.pdf ">Inst 1040 (PR) (Anexo H-PR)</a>
-		</td>
-		<td class="MiddleCellSpacer">
-        	Instrucciones para el Anexo H-PR (Formulario 1040-PR), Contribuciones sobre el Empleo de Empleados Domesticos
-      	</td>
- 
-      	<td class="MiddleCellSpacer">
-      		2014
-      	</td>
-     	<td class="EndCellSpacer">
-     		09/30/2014
-     	</td>     			
-	</tr>
-
 </table>
 
+</div>
+
+
+
+
+
+	
+		
+<div class="errorBlock">
+<p id="errorText">No results were found that match your entry in the "Find" field. <br>
+You may want to shorten your entry and try again (for example, enter 17 instead of Pub 17), or use the <a href="http://search.irs.gov/search?q=&output=xml_no_dtd&proxystylesheet=irs_portals_frontend&client=irs_portals_frontend&oe=UTF-8&ie=UTF-8&num=10&ud=1&exclude_apps=1&site=default_collection&numgm=5&requiredfields=-archive%3A1&rfr=picklist">site search</a>.
+</p>
+
+</div>
+
+ 
+
+
+	
+
+
+
+
+
+
+<div class="page-bottom">
 	<hr />
-
 </div>
 
-
-
-
-	
-	<div class="paginationBottom">
-
-
-
-
-
-
-
-
-
-
-
-   	&laquo; Previous&nbsp;|
-
-
-
-
-
-	
-	
-		
-			<b>1</b>
-		
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>2</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=50&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>3</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=75&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>4</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=100&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>5</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=125&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>6</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=150&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>7</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=175&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>8</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=200&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>9</a>
-		 
-	
-
-
-	
-	
-		
-		
-			<a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=225&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true"/>10</a>
-		 
-	
-
-
-
-
-
-    |	
-    <a href="/app/picklist/list/draftTaxForms.html?indexOfFirstRow=25&amp;sortColumn=postedDate&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true">Next &raquo;</a>&nbsp;
-
-
-
-</div>
-
-
-
-
-
-
-
-<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif' alt="Official Adobe Website" title="Official Adobe Website"/></a>
+<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif;jsessionid=1nkulfPmMxoXbmFolTmZsw__' alt="Official Adobe Website" title="Official Adobe Website"/></a>
 <br>
 <a href="/app/scripts/exit.jsp?dest=http://www.adobe.com">Get Adobe &#174; Reader</a>
 
@@ -1121,6 +336,7 @@ Show per page:&nbsp;
 
 
 </div>
+
 
 
 			</div> <!-- content -->

@@ -1,6 +1,6 @@
-(function() {
 
-  var App = Ember.Application.create();
+
+var App = Ember.Application.create();
 App.ApplicationAdapter = DS.ActiveModelAdapter.extend({
 
 });
@@ -25,7 +25,14 @@ var attr=DS.attr;
   });
 
   App.IndexController=Ember.ArrayController.extend({
+    formCount:function(){
+
+      return this.get("content.content").length
+    }.property("content.[]"),
     actions:{
+      setFilterColumn:function(column){
+  			this.set("filterColumn",column)
+  		},
       setSortProperty:function(property){
         console.log(this.get("sortProperties"))
         if(this.get("sortProperties")[0].split(":")[0]==property){
@@ -49,14 +56,24 @@ var attr=DS.attr;
         Ember.run.once(this,"setVisibleList")
       }
     },
+    displayFilterColumn:function(){
+  		var string=this.get("filterColumn")
+  		return (string.charAt(0).toUpperCase() + string.substring(1))
+  	}.property("filterColumn"),
     sortDirection:"asc",
     sortProperties:["postedDate:asc"],
     sortedLinks:Ember.computed.sort("content","sortProperties"),
+    filteredLinks:Ember.computed.filter("sortedLinks",function(link){
+      console.log("hi")
+      return String(link.get(this.get("filterColumn"))).match(this.get("filterValue"))
+    }).property("sortedLinks","filterColumn","filterValue"),
     currentPage: 1,
-	  perPage:8,
+	  perPage:10,
+    filterColumn:"name",
+	  filterValue:"",
     visibleList: function () {
       var links=[];
-      var linkList=this.get("sortedLinks")
+      var linkList=this.get("filteredLinks")
       console.log((this.get("currentPage")-1)*this.get("perPage"))
       console.log(((this.get("currentPage")-1)*this.get("perPage")+this.get("perPage")))
       for(var i=(this.get("currentPage")-1)*this.get("perPage");i<((this.get("currentPage")-1)*this.get("perPage")+this.get("perPage"));i++){
@@ -67,10 +84,10 @@ var attr=DS.attr;
         }
       }
       return links
-    }.property( "sortedLinks.[]", "currentPage","perPage"),
+    }.property( "filteredLinks.[]", "currentPage","perPage"),
     paginationHash: function(){
 				var controller = this;
-				var length = this.get("sortedLinks").length
+				var length = this.get("filteredLinks").length
 				if (length % this.get("perPage") === 0) {
 						var ceiling = Math.floor(length / this.get("perPage"))
 				} else {
@@ -116,7 +133,7 @@ var attr=DS.attr;
 				}
         console.log(paginationHash)
 				return paginationHash
-	}.property("arrayLength", "perPage","currentPage","sortedLinks.[]"),
+	}.property("arrayLength", "perPage","currentPage","filteredLinks.[]"),
   })
 
   App.IndexRoute = Ember.Route.extend({
@@ -139,13 +156,24 @@ var attr=DS.attr;
 
           }
         })
+      },
+      deleteLinks:function(){
+        var route=this;
+        jQuery.ajax({
+          url:"/deleteLinks",
+          method:"POST",
+          success:function(data){
+            route.store.unloadAll("link")
+          },
+          error:function(){
+
+          }
+        })
       }
     }
   });
 
   App.ApplicationView=Ember.View.extend({
     didInsertElement:function(){
-
     }
   })
-})();

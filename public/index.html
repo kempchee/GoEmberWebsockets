@@ -13,8 +13,30 @@
   {{outlet}}
 </div>
 </script>
-<h3 class="text-center">Updates</h3>
+
 <script type="text/x-handlebars" id="index">
+<h3 class="text-center">Forms and Instructions</h3>
+<br>
+
+<div class="col-xs-6">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{displayFilterColumn}} <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a {{action "setFilterColumn" "name"}} href="#">Name</a></li>
+                <li><a {{action "setFilterColumn" "description"}} href="#">Description</a></li>
+              </ul>
+            </div>
+            {{view App.FilterTextBoxView value=filterValue class="form-control"}}
+          </div>
+</div>
+<div class="col-xs-6">
+</div>
+<div class="clearfix">
+</div>
+<br>
+<i>Found {{formCount}} Forms and Instructions</i>
+
 <ul class="list-group ">
   <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "name"}}>
     <b>Name</b>
@@ -65,8 +87,14 @@
 
 <br>
 
-<div class="btn btn-primary" {{action "loadUpdates"}}>Load Updates
+<div class="btn-group">
+  <div class="btn btn-info" {{action "loadUpdates"}}><span class="glyphicon glyphicon-repeat
+"></span>Load Updates</div>
+  <div class="btn btn-danger" {{action "deleteLinks"}}><span class="glyphicon glyphicon-trash
+"></span>Delete Links</div>
+  </div>
 </div>
+
 </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
@@ -74,6 +102,7 @@
   <script src="js/libs/ember-1.7.0.js"></script>
   <script src="js/libs/ember-data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/views/FilterTextBoxView.js"></script>
   <script src="js/libs/bootstrap.js"></script>
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>

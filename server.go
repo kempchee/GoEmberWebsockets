@@ -13,6 +13,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strconv"
 	//"github.com/kempchee/GoEmber/handlers"
 )
 
@@ -72,11 +73,17 @@ func main() {
 	r.HandleFunc("/links", getLinksHandler).Methods("GET")
 	r.HandleFunc("/getLinks", getLinksHandler).Methods("GET")
 	r.HandleFunc("/updateLinks", UpdateLinksHandler).Methods("POST")
+	r.HandleFunc("/deleteLinks",DeleteLinksHandler).Methods("POST")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 
 	log.Println("Listening on 8080")
 	http.ListenAndServe(":8080", nil)
+}
+
+func DeleteLinksHandler(w http.ResponseWriter, r *http.Request){
+	formUpdatesCollection.RemoveAll(nil)
+	w.Write([]byte(nil))
 }
 
 func doesUpdateExist(query bson.M) bool {
@@ -104,70 +111,82 @@ func getLinksHandler(w http.ResponseWriter, r *http.Request) {
 
 func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	resp, err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
-	//resp,err := http.Get("http://www.irs.gov/pub/irs-dft/i8962--dft.pdf")
-	if err != nil {
-		panic(err)
-	}
-
-	body, newError := ioutil.ReadAll(resp.Body)
-	if newError != nil {
-		panic(err)
-	}
-	// write whole the body
-	err = ioutil.WriteFile("output.txt", body, 0644)
-	if err != nil {
-		panic(err)
-	}
-
-	doc, _ := gokogiri.ParseHtml([]byte(body))
-	rowsFinder := xpath.Compile("//table[@class='picklist-dataTable']/tr")
-	nameFinder := xpath.Compile("//td/a/text()")
-	linkFinder := xpath.Compile("//td/a/@href")
-	descriptionFinder := xpath.Compile("//td[2]/text()")
-	revisionDateFinder := xpath.Compile("//td[3]/text()")
-	postedDateFinder := xpath.Compile("//td[4]/text()")
-	//fmt.Println(doc.Root().String())
-	rows, _ := doc.Root().Search(rowsFinder)
+	var currentIndex int64
 	var links []string
 	var names []string
 	var descriptions []string
 	var revisionDates []string
 	var postedDates []string
-	for i := 0; i < len(rows); i++ {
-		rowHtml, _ := gokogiri.ParseHtml([]byte(rows[i].String()))
-		fmt.Println(rowHtml)
-		link, _ := rowHtml.Search(linkFinder)
-		name, _ := rowHtml.Search(nameFinder)
-		description, _ := rowHtml.Search(descriptionFinder)
-		revisionDate, _ := rowHtml.Search(revisionDateFinder)
-		postedDate, _ := rowHtml.Search(postedDateFinder)
-		if len(links) > 0 {
-			url, _ := url.Parse(link[0].String())
-			links = append(links, "http://www.irs.gov"+url.Path)
-		} else {
-			links = append(links, "")
+	currentIndex = 0
+	for i:=0;;i++{
+		fmt.Println("NEW GROUP")
+		resp, err := http.Get("http://apps.irs.gov/app/picklist/list/formsInstructions.html?indexOfFirstRow=" + strconv.FormatInt(currentIndex*25, 10) + "&sortColumn=sortOrder&value=&criteria=&resultsPerPage=25&isDescending=false")
+		//resp, err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
+		//resp,err := http.Get("http://www.irs.gov/pub/irs-dft/i8962--dft.pdf")
+		if err != nil {
+			fmt.Println("here")
+			panic(err)
 		}
-		if len(names) > 0 {
-			names = append(names, name[0].String())
-		} else {
-			names = append(names, "")
+
+		body, newError := ioutil.ReadAll(resp.Body)
+		if newError != nil {
+			fmt.Println("here")
+			panic(err)
 		}
-		if len(descriptions) > 0 {
-			descriptions = append(descriptions, description[0].String())
-		} else {
-			descriptions = append(descriptions, "")
+		// write whole the body
+		err = ioutil.WriteFile("output.txt", body, 0644)
+		if err != nil {
+			fmt.Println("here")
+			panic(err)
 		}
-		if len(revisionDates) > 0 {
-			revisionDates = append(revisionDates, revisionDate[0].String())
-		} else {
-			revisionDates = append(revisionDates, "")
+
+		doc, _ := gokogiri.ParseHtml([]byte(body))
+		rowsFinder := xpath.Compile("//table[@class='picklist-dataTable']/tr")
+		nameFinder := xpath.Compile("//td/a/text()")
+		linkFinder := xpath.Compile("//td/a/@href")
+		descriptionFinder := xpath.Compile("//td[2]/text()")
+		revisionDateFinder := xpath.Compile("//td[3]/text()")
+		postedDateFinder := xpath.Compile("//td[4]/text()")
+		rows, _ := doc.Root().Search(rowsFinder)
+		if len(rows)==1{
+			break
 		}
-		if len(postedDates) > 0 {
-			postedDates = append(postedDates, postedDate[0].String())
-		} else {
-			postedDates = append(postedDates, "")
+
+		for i := 0; i < len(rows); i++ {
+			rowHtml, _ := gokogiri.ParseHtml([]byte(rows[i].String()))
+			link, _ := rowHtml.Search(linkFinder)
+			name, _ := rowHtml.Search(nameFinder)
+			description, _ := rowHtml.Search(descriptionFinder)
+			revisionDate, _ := rowHtml.Search(revisionDateFinder)
+			postedDate, _ := rowHtml.Search(postedDateFinder)
+			if len(links)%26!=0{
+				url, _ := url.Parse(link[0].String())
+				links = append(links, "http://www.irs.gov"+url.Path)
+			} else {
+				links = append(links, "")
+			}
+			if len(names)%26!=0{
+				names = append(names, name[0].String())
+			} else {
+				names = append(names, "")
+			}
+			if len(descriptions)%26!=0{
+				descriptions = append(descriptions, description[0].String())
+			} else {
+				descriptions = append(descriptions, "")
+			}
+			if len(revisionDates)%26!=0{
+				revisionDates = append(revisionDates, revisionDate[0].String())
+			} else {
+				revisionDates = append(revisionDates, "")
+			}
+			if len(postedDates)%26!=0{
+				postedDates = append(postedDates, postedDate[0].String())
+			} else {
+				postedDates = append(postedDates, "")
+			}
 		}
+		currentIndex++
 	}
 	var newLinks []Link
 	for i := 0; i < len(links); i++ {
@@ -178,15 +197,13 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	for i := 0; i < len(newLinks); i++ {
 		count, _ := formUpdatesCollection.Find(bson.M{"Name": newLinks[i].Name, "PostedDate": newLinks[i].PostedDate}).Count()
-		fmt.Println(newLinks[i].Name)
 		if count == 0 {
-			fmt.Println(newLinks[i])
 			formUpdatesCollection.Insert(&newLinks[i])
 		} else {
 		}
 	}
 	//structLinks := Links{newLinks}
-//	jsonLinks, _ := json.Marshal(structLinks)
+	//	jsonLinks, _ := json.Marshal(structLinks)
 	var formUpdates []Link
 	formUpdatesCollection.Find(nil).All(&formUpdates)
 	structLinks := Links{formUpdates}
