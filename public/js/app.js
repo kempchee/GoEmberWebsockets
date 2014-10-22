@@ -26,7 +26,11 @@ var attr=DS.attr;
     revisionDate:attr(),
     description:attr(),
     current:function(){
-
+      if(this.get("revisionDate")==this.get("year")){
+        return true
+      }else{
+        return false
+      }
     }.property("revisionDate","year"),
     year:attr()
   //  link: DS.attr('string'),

@@ -32,17 +32,17 @@ type Link struct {
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
-type FormReportItem struct{
+type FormReportItem struct {
 	Url          string        `bson:"Url" json:"url"`
-	Name string `bson:"Name" json:"name"`
-	Year int `bson:"Year" json:"year"`
+	Name         string        `bson:"Name" json:"name"`
+	Year         string        `bson:"Year" json:"year"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
-	Id       bson.ObjectId `bson:"_id" json:"id"`
+	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
 type FormReportItems struct {
-	FormReportItems []FormReportItem `json:"formReportItems"`
+	FormReportItems []FormReportItem `json:"form_report_items"`
 }
 
 type Links struct {
@@ -88,8 +88,8 @@ func main() {
 	r.HandleFunc("/links", getLinksHandler).Methods("GET")
 	r.HandleFunc("/getLinks", getLinksHandler).Methods("GET")
 	r.HandleFunc("/updateLinks", UpdateLinksHandler).Methods("POST")
-	r.HandleFunc("/deleteLinks",DeleteLinksHandler).Methods("POST")
-	r.HandleFunc("/form_report_items",createFormReportHandler).Methods("GET")
+	r.HandleFunc("/deleteLinks", DeleteLinksHandler).Methods("POST")
+	r.HandleFunc("/form_report_items", createFormReportHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 
@@ -97,7 +97,7 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func DeleteLinksHandler(w http.ResponseWriter, r *http.Request){
+func DeleteLinksHandler(w http.ResponseWriter, r *http.Request) {
 	formUpdatesCollection.RemoveAll(nil)
 	w.Write([]byte(nil))
 }
@@ -112,18 +112,20 @@ func doesUpdateExist(query bson.M) bool {
 	}
 }
 
-func createFormReportHandler(w http.ResponseWriter, r *http.Request){
-	year:="2014"
-	fmt.Println(mux.Vars)
-	fmt.Println(r)
-	fmt.Println(r.Body)
+func createFormReportHandler(w http.ResponseWriter, r *http.Request) {
+
+	year := r.URL.Query()["year"][0]
+	fmt.Println(year)
 	var formUpdates []FormReportItem
-	formUpdatesCollection.Find(bson.M{"RevisionDate":year}).All(&formUpdates)
+	formUpdatesCollection.Find(bson.M{}).All(&formUpdates)
+	for i := 0; i < len(formUpdates); i++ {
+		formUpdates[i].Year = "2014"
+	}
 	if len(formUpdates) > 0 {
 		structLinks := FormReportItems{formUpdates}
 		jsonLinks, _ := json.Marshal(structLinks)
 		w.Write([]byte(jsonLinks))
-	}else{
+	} else {
 		w.Write([]byte(`{"form_report_items":[]}`))
 	}
 }
@@ -150,7 +152,7 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	var revisionDates []string
 	var postedDates []string
 	currentIndex = 0
-	for i:=0;;i++{
+	for i := 0; ; i++ {
 		fmt.Println("NEW GROUP")
 		resp, err := http.Get("http://apps.irs.gov/app/picklist/list/formsInstructions.html?indexOfFirstRow=" + strconv.FormatInt(currentIndex*25, 10) + "&sortColumn=sortOrder&value=&criteria=&resultsPerPage=25&isDescending=false")
 		//resp, err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
@@ -180,7 +182,7 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 		revisionDateFinder := xpath.Compile("//td[3]/text()")
 		postedDateFinder := xpath.Compile("//td[4]/text()")
 		rows, _ := doc.Root().Search(rowsFinder)
-		if len(rows)==1{
+		if len(rows) == 1 {
 			break
 		}
 
@@ -191,28 +193,28 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 			description, _ := rowHtml.Search(descriptionFinder)
 			revisionDate, _ := rowHtml.Search(revisionDateFinder)
 			postedDate, _ := rowHtml.Search(postedDateFinder)
-			if len(links)%26!=0{
+			if len(links)%26 != 0 {
 				url, _ := url.Parse(link[0].String())
 				links = append(links, "http://www.irs.gov"+url.Path)
 			} else {
 				links = append(links, "")
 			}
-			if len(names)%26!=0{
+			if len(names)%26 != 0 {
 				names = append(names, name[0].String())
 			} else {
 				names = append(names, "")
 			}
-			if len(descriptions)%26!=0{
+			if len(descriptions)%26 != 0 {
 				descriptions = append(descriptions, description[0].String())
 			} else {
 				descriptions = append(descriptions, "")
 			}
-			if len(revisionDates)%26!=0{
+			if len(revisionDates)%26 != 0 {
 				revisionDates = append(revisionDates, revisionDate[0].String())
 			} else {
 				revisionDates = append(revisionDates, "")
 			}
-			if len(postedDates)%26!=0{
+			if len(postedDates)%26 != 0 {
 				postedDates = append(postedDates, postedDate[0].String())
 			} else {
 				postedDates = append(postedDates, "")
