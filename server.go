@@ -23,12 +23,28 @@ var (
 	formUpdatesCollection *mgo.Collection
 )
 
+type DraftForm struct{
+	Url          string        `bson:"Url" json:"url"`
+	Name         string        `bson:"Name" json:"name"`
+	Year         string        `bson:"Year" json:"year"`
+	Description  string        `bson:"Description" json:"description"`
+	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
+	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
+	AnnualUpdate bool	`bson:"AnnualUpdate" json:"annual_update"`
+	Id           bson.ObjectId `bson:"_id" json:"id"`
+}
+
+type DraftForms struct {
+	DraftForms []DraftForm `json:"links"`
+}
+
 type Link struct {
 	Url          string        `bson:"Url" json:"url"`
 	Name         string        `bson:"Name" json:"name"`
 	Description  string        `bson:"Description" json:"description"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
+	AnnualUpdate bool	`bson:"AnnualUpdate" json:"annual_update"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
@@ -38,6 +54,7 @@ type FormReportItem struct {
 	Year         string        `bson:"Year" json:"year"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
+	AnnualUpdate bool	`bson:"AnnualUpdate" json:"annual_update"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
@@ -86,9 +103,11 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/sockets", SocketsHandler)
 	r.HandleFunc("/links", getLinksHandler).Methods("GET")
-	r.HandleFunc("/getLinks", getLinksHandler).Methods("GET")
 	r.HandleFunc("/updateLinks", UpdateLinksHandler).Methods("POST")
 	r.HandleFunc("/deleteLinks", DeleteLinksHandler).Methods("POST")
+	r.HandleFunc("/draft_forms", DraftFormsHandler).Methods("GET")
+	r.HandleFunc("/update_draft_forms", UpdateDraftFormsHandler).Methods("POST")
+	r.HandleFunc("/delete_all_draft_forms", DeleteDraftFormsHandler).Methods("POST")
 	r.HandleFunc("/form_report_items", createFormReportHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
@@ -115,11 +134,58 @@ func doesUpdateExist(query bson.M) bool {
 func createFormReportHandler(w http.ResponseWriter, r *http.Request) {
 
 	year := r.URL.Query()["year"][0]
+	group:=r.URL.Query()["group"][0]
+	var names []string
+	if(group=="1065"){
+		names=[]string{"Form 4562",
+			"Form 8925",
+			"Form 8825",
+			"Form 1065 (Schedule D)",
+			"Form 1065-B",
+			"Form 1065",
+			"Form 1065 (Schedule B-1)",
+			"Form 1065 (Schedule K-1)",
+			"Form 4562",
+			 "Form 4797",
+			 "Form 8453-PE",
+			"Form 8882",
+			 "Form 1065 (Schedule C)",
+			"Form 1065 (Schedule M-3)",
+			 "Form 1125-A",
+			 "Form 8824",
+			"Form 8865",
+			"Form 8865 (Schedule K-1)",
+			 "Form 8308",
+			 "Form 8949",
+			 "Form 6252",
+			 "Form 1040 (Schedule F)",
+			"Form 1065-B",
+			 "Form 8453-B"}
+	}
+
 	fmt.Println(year)
 	var formUpdates []FormReportItem
-	formUpdatesCollection.Find(bson.M{}).All(&formUpdates)
+	for _,name:=range names{
+		var update FormReportItem
+		result:=formUpdatesCollection.Find(bson.M{"Name":name})
+		count,_:=result.Count()
+		if count>0{
+			result.One(&update)
+		}else{
+			update.Url="N/A"
+			update.Name=name
+			update.Year="N/A"
+			update.RevisionDate="N/A"
+			update.PostedDate="N/A"
+			update.Id=bson.NewObjectId()
+			update.AnnualUpdate=false
+		}
+		fmt.Println(update)
+		formUpdates=append(formUpdates,update)
+	}
+
 	for i := 0; i < len(formUpdates); i++ {
-		formUpdates[i].Year = "2014"
+		formUpdates[i].Year = year
 	}
 	if len(formUpdates) > 0 {
 		structLinks := FormReportItems{formUpdates}
@@ -139,6 +205,23 @@ func getLinksHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(jsonLinks))
 	} else {
 		w.Write([]byte(`{"links":[]}`))
+	}
+
+}
+
+func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {}
+
+func DeleteDraftFormsHandler(w http.ResponseWriter, r *http.Request) {}
+
+func DraftFormsHandler(w http.ResponseWriter, r *http.Request) {
+	var formUpdates []DraftForm
+	formUpdatesCollection.Find(nil).All(&formUpdates)
+	if len(formUpdates) > 0 {
+		structLinks := DraftForms{formUpdates}
+		jsonLinks, _ := json.Marshal(structLinks)
+		w.Write([]byte(jsonLinks))
+	} else {
+		w.Write([]byte(`{"draft_forms":[]}`))
 	}
 
 }
@@ -226,7 +309,14 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(links); i++ {
 		if links[i] == "" {
 		} else {
-			newLinks = append(newLinks, Link{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]), bson.NewObjectId()})
+			newLink:=Link{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]),false, bson.NewObjectId()}
+
+			if(string(newLink.RevisionDate[0])=="2"&&string(newLink.RevisionDate[1])=="0"){
+				newLink.AnnualUpdate=true
+			}else{
+				newLink.AnnualUpdate=false
+			}
+			newLinks = append(newLinks, newLink)
 		}
 	}
 	for i := 0; i < len(newLinks); i++ {
