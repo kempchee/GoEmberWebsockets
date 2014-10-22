@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	//"github.com/kempchee/GoEmber/handlers"
 )
 
@@ -26,10 +27,24 @@ type Link struct {
 	Url          string        `bson:"Url" json:"url"`
 	Name         string        `bson:"Name" json:"name"`
 	Description  string        `bson:"Description" json:"description"`
-	RevisionDate string        `bson:"RevisionDate" json:"revisionDate"`
-	PostedDate   string        `bson:"PostedDate" json:"postedDate"`
+	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
+	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
+
+type FormReportItem struct{
+	Url          string        `bson:"Url" json:"url"`
+	Name string `bson:"Name" json:"name"`
+	Year int `bson:"Year" json:"year"`
+	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
+	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
+	Id       bson.ObjectId `bson:"_id" json:"id"`
+}
+
+type FormReportItems struct {
+	FormReportItems []FormReportItem `json:"formReportItems"`
+}
+
 type Links struct {
 	Links []Link `json:"links"`
 }
@@ -74,6 +89,7 @@ func main() {
 	r.HandleFunc("/getLinks", getLinksHandler).Methods("GET")
 	r.HandleFunc("/updateLinks", UpdateLinksHandler).Methods("POST")
 	r.HandleFunc("/deleteLinks",DeleteLinksHandler).Methods("POST")
+	r.HandleFunc("/form_report_items",createFormReportHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 
@@ -93,6 +109,22 @@ func doesUpdateExist(query bson.M) bool {
 		return false
 	} else {
 		return true
+	}
+}
+
+func createFormReportHandler(w http.ResponseWriter, r *http.Request){
+	year:="2014"
+	fmt.Println(mux.Vars)
+	fmt.Println(r)
+	fmt.Println(r.Body)
+	var formUpdates []FormReportItem
+	formUpdatesCollection.Find(bson.M{"RevisionDate":year}).All(&formUpdates)
+	if len(formUpdates) > 0 {
+		structLinks := FormReportItems{formUpdates}
+		jsonLinks, _ := json.Marshal(structLinks)
+		w.Write([]byte(jsonLinks))
+	}else{
+		w.Write([]byte(`{"form_report_items":[]}`))
 	}
 }
 
@@ -192,11 +224,11 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(links); i++ {
 		if links[i] == "" {
 		} else {
-			newLinks = append(newLinks, Link{links[i], names[i], descriptions[i], revisionDates[i], postedDates[i], bson.NewObjectId()})
+			newLinks = append(newLinks, Link{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]), bson.NewObjectId()})
 		}
 	}
 	for i := 0; i < len(newLinks); i++ {
-		count, _ := formUpdatesCollection.Find(bson.M{"Name": newLinks[i].Name, "PostedDate": newLinks[i].PostedDate}).Count()
+		count, _ := formUpdatesCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name), "PostedDate": strings.TrimSpace(newLinks[i].PostedDate)}).Count()
 		if count == 0 {
 			formUpdatesCollection.Insert(&newLinks[i])
 		} else {

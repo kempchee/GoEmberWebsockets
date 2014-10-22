@@ -19,12 +19,37 @@ var attr=DS.attr;
   //  picture: DS.attr('string')
   });
 
+  App.FormReportItem = DS.Model.extend({
+    url:attr(),
+    name:attr(),
+    postedDate:attr(),
+    revisionDate:attr(),
+    description:attr(),
+    current:function(){
+
+    }.property("revisionDate","year"),
+    year:attr()
+  //  link: DS.attr('string'),
+  //  picture: DS.attr('string')
+  });
+
   App.Router.map(function() {
-    // put your routes here
+    this.route("updatedFormsReport")
+    this.route("allForms",{path:"/"})
 
   });
 
-  App.IndexController=Ember.ArrayController.extend({
+  App.UpdatedFormsReportRoute=Ember.Route.extend({
+    model:function(){
+      return this.store.find("formReportItem",{year:2014})
+    }
+  })
+
+  App.UpdatedFormsReportController=Ember.ArrayController.extend({
+
+  })
+
+  App.AllFormsController=Ember.ArrayController.extend({
     formCount:function(){
 
       return this.get("content.content").length
@@ -136,7 +161,7 @@ var attr=DS.attr;
 	}.property("arrayLength", "perPage","currentPage","filteredLinks.[]"),
   })
 
-  App.IndexRoute = Ember.Route.extend({
+  App.AllFormsRoute = Ember.Route.extend({
     model: function() {
       return this.store.find("link")
     },

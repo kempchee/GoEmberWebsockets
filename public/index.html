@@ -9,92 +9,130 @@
 <body>
 
   <script type="text/x-handlebars">
-<div class="container">
-  {{outlet}}
+    <div class="container">
+      <h3 class="text-center">Forms and Instructions</h3>
+      <br>
+      <ul class="nav nav-tabs" role="tablist">
+        {{#link-to "allForms"  tagName="li" href=false}}{{#link-to "allForms" }}<span class="glyphicon glyphicon-list"></span> All Forms{{/link-to}}{{/link-to}}
+        {{#link-to "updatedFormsReport"  tagName="li" href=false}}{{#link-to "updatedFormsReport" }}<span class="glyphicon glyphicon-list"></span> Updated Forms{{/link-to}}{{/link-to}}
+      </ul>
+      <div class="tab-content">
+        {{outlet}}
+      </div>
+    </div>
+  </script>
+
+<script type="text/x-handlebars" id="allForms">
+  <div class="tab-pane active" id="all">
+    <br>
+      <div class="col-xs-6">
+                <div class="input-group">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{displayFilterColumn}} <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a {{action "setFilterColumn" "name"}} href="#">Name</a></li>
+                      <li><a {{action "setFilterColumn" "description"}} href="#">Description</a></li>
+                    </ul>
+                  </div>
+                  {{view App.FilterTextBoxView value=filterValue class="form-control"}}
+                </div>
+      </div>
+      <div class="col-xs-6">
+      </div>
+      <div class="clearfix">
+      </div>
+      <br>
+      <i>Found {{formCount}} Forms and Instructions</i>
+
+      <ul class="list-group ">
+        <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "name"}}>
+          <b>Name</b>
+        </li>
+        <li class="list-group-item col-xs-6 table-row-title" {{action "setSortProperty" "description"}}>
+          <b>Description</b>
+        </li>
+        <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "revisionDate"}}>
+          <b>R. Date</b>
+        </li>
+        <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "postedDate"}}>
+          <b>P. Date</b>
+        </li>
+        {{#each visibleList}}
+          <li class="list-group-item col-xs-2">
+            <a href="{{unbound url}}">{{name}}</a>
+          </li>
+          <li class="list-group-item col-xs-6">
+            {{description}}
+          </li>
+          <li class="list-group-item col-xs-2">
+            {{revisionDate}}
+          </li>
+          <li class="list-group-item col-xs-2">
+            {{postedDate}}
+          </li>
+        {{/each}}
+      </ul>
+      <div class="clearfix"></div>
+      <div class="text-center"><ul class='pagination'>
+          {{#if paginationHash.leftArrow}}
+            <li {{action "decrementPage" currentPage}}><a href="#">&laquo;</a></li>
+          {{/if}}
+          {{#each paginationHash.pages}}
+            {{#if this.[1]}}
+                <li class="active" {{action "changePage" this.[0]}}><a href="#">{{this.[0]}}</a></li>
+                {{else}}
+                <li  {{action "changePage" this.[0]}}><a href="#">{{this.[0]}}</a></li>
+              {{/if}}
+          {{/each}}
+          {{#if paginationHash.rightArrow}}
+            <li {{action "incrementPage" currentPage}}><a href="#">&raquo;</a></li>
+          {{/if}}
+
+       </ul>
+
+       </div>
+
+      <br>
+
+      <div class="btn-group">
+          <div class="btn btn-info" {{action "loadUpdates"}}><span class="glyphicon glyphicon-repeat
+        "></span>Load Updates</div>
+          <div class="btn btn-danger" {{action "deleteLinks"}}><span class="glyphicon glyphicon-trash
+        "></span>Delete Links</div>
+      </div>
+      </div>
+
+
 </div>
+
 </script>
 
-<script type="text/x-handlebars" id="index">
-<h3 class="text-center">Forms and Instructions</h3>
-<br>
 
-<div class="col-xs-6">
-          <div class="input-group">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{displayFilterColumn}} <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu">
-                <li><a {{action "setFilterColumn" "name"}} href="#">Name</a></li>
-                <li><a {{action "setFilterColumn" "description"}} href="#">Description</a></li>
-              </ul>
-            </div>
-            {{view App.FilterTextBoxView value=filterValue class="form-control"}}
-          </div>
-</div>
-<div class="col-xs-6">
-</div>
-<div class="clearfix">
-</div>
-<br>
-<i>Found {{formCount}} Forms and Instructions</i>
 
-<ul class="list-group ">
-  <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "name"}}>
-    <b>Name</b>
-  </li>
-  <li class="list-group-item col-xs-6 table-row-title" {{action "setSortProperty" "description"}}>
-    <b>Description</b>
-  </li>
-  <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "revisionDate"}}>
-    <b>R. Date</b>
-  </li>
-  <li class="list-group-item col-xs-2 table-row-title" {{action "setSortProperty" "postedDate"}}>
-    <b>P. Date</b>
-  </li>
-  {{#each visibleList}}
-    <li class="list-group-item col-xs-2">
-      <a href="{{unbound url}}">{{name}}</a>
-    </li>
-    <li class="list-group-item col-xs-6">
-      {{description}}
-    </li>
-    <li class="list-group-item col-xs-2">
-      {{revisionDate}}
-    </li>
-    <li class="list-group-item col-xs-2">
-      {{postedDate}}
-    </li>
-  {{/each}}
-</ul>
-<div class="clearfix"></div>
-<div class="text-center"><ul class='pagination'>
-    {{#if paginationHash.leftArrow}}
-      <li {{action "decrementPage" currentPage}}><a href="#">&laquo;</a></li>
-    {{/if}}
-    {{#each paginationHash.pages}}
-      {{#if this.[1]}}
-          <li class="active" {{action "changePage" this.[0]}}><a href="#">{{this.[0]}}</a></li>
-          {{else}}
-          <li  {{action "changePage" this.[0]}}><a href="#">{{this.[0]}}</a></li>
-        {{/if}}
-    {{/each}}
-    {{#if paginationHash.rightArrow}}
-      <li {{action "incrementPage" currentPage}}><a href="#">&raquo;</a></li>
-    {{/if}}
+<script type="text/x-handlebars" id="updatedFormsReport">
+  <div class="tab-pane active" id="updatedForms">
 
- </ul>
-
- </div>
-
-<br>
-
-<div class="btn-group">
-  <div class="btn btn-info" {{action "loadUpdates"}}><span class="glyphicon glyphicon-repeat
-"></span>Load Updates</div>
-  <div class="btn btn-danger" {{action "deleteLinks"}}><span class="glyphicon glyphicon-trash
-"></span>Delete Links</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Form Name</th>
+        <th>Last Updated</th>
+        <th>Year</th>
+        <th>Current as of {{formReportYear}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{revisionDate}}</td>
+          <td>{{year}}</td>
+          <td>{{current}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
   </div>
-</div>
-
 </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
