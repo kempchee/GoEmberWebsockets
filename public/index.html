@@ -15,7 +15,7 @@
       <br>
       <ul class="nav nav-tabs" role="tablist">
         {{#link-to "allForms"  tagName="li" href=false}}{{#link-to "allForms" }}<i class="fa fa-list"></i> Final Forms{{/link-to}}{{/link-to}}
-        {{#link-to "draftForms"  tagName="li" href=false}}{{#link-to "allForms" }}<i class="fa fa-list"></i> Draft Forms{{/link-to}}{{/link-to}}
+        {{#link-to "draftForms"  tagName="li" href=false}}{{#link-to "draftForms" }}<i class="fa fa-list"></i> Draft Forms{{/link-to}}{{/link-to}}
         {{#link-to "updatedFormsReport"  tagName="li" href=false}}{{#link-to "updatedFormsReport" }}<i class="fa fa-list-alt"></i> Form Status{{/link-to}}{{/link-to}}
       </ul>
       <div class="tab-content">
@@ -41,8 +41,7 @@
                   </div>
                   {{view App.FilterTextBoxView value=filterValue class="form-control"}}
                   <div class="input-group-btn">
-                    <div class="btn btn-info" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
-                    <div class="btn btn-danger" {{action "deleteLinks"}}><i class="fa fa-trash"></i></span> Delete All</div>
+                    <div class="btn btn-success" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
                   </div>
                 </div>
       </div>
@@ -124,8 +123,7 @@
                   </div>
                   {{view App.FilterTextBoxView value=filterValue class="form-control"}}
                   <div class="input-group-btn">
-                    <div class="btn btn-info" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
-                    <div class="btn btn-danger" {{action "deleteLinks"}}><i class="fa fa-trash"></i></span> Delete All</div>
+                    <div class="btn btn-success" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
                   </div>
                 </div>
       </div>

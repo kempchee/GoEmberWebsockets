@@ -20,6 +20,17 @@ var attr=DS.attr;
   //  picture: DS.attr('string')
   });
 
+  App.DraftForm = DS.Model.extend({
+    url:attr(),
+    name:attr(),
+    postedDate:attr(),
+    revisionDate:attr(),
+    description:attr(),
+    annualUpdate:attr(),
+    deleted:attr(),
+    superceded:attr()
+  });
+
   App.FormReportItem = DS.Model.extend({
     url:attr(),
     name:attr(),
@@ -196,50 +207,13 @@ var attr=DS.attr;
 	}.property("arrayLength", "perPage","currentPage","filteredLinks.[]"),
   })
 
-  App.AllFormsRoute = Ember.Route.extend({
-    model: function() {
-      return this.store.find("link")
-    },
-    actions:{
-      loadUpdates:function(){
-        var route=this;
-        jQuery.ajax({
-          url:"/updateLinks",
-          method:"POST",
-          success:function(data){
-            console.log(data)
-            data.links.forEach(function(link){
-              var serializedLink=route.store.serializerFor("Link").normalize(App.Link,link)
-              route.store.update("Link",serializedLink)
-            })
-          },
-          error:function(){
-
-          }
-        })
-      },
-      deleteLinks:function(){
-        var route=this;
-        jQuery.ajax({
-          url:"/deleteLinks",
-          method:"POST",
-          success:function(data){
-            route.store.unloadAll("link")
-          },
-          error:function(){
-
-          }
-        })
-      }
-    }
-  });
 
   App.DraftFormsView=Ember.View.extend({
     didInsertElement:function(){
     }
   })
 
-  App.AllFormsController=Ember.ArrayController.extend({
+  App.DraftFormsController=Ember.ArrayController.extend({
     formCount:function(){
 
       return this.get("content.content").length
@@ -360,7 +334,7 @@ var attr=DS.attr;
       loadUpdates:function(){
         var route=this;
         jQuery.ajax({
-          url:"/update_draft_finks",
+          url:"/update_draft_forms",
           method:"POST",
           success:function(data){
             console.log(data)

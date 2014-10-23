@@ -9,7 +9,6 @@
 
 
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -17,11 +16,12 @@
 <html>
 	<head>		
               
-		<script src="/app/picklist/scripts/common.js;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" type="text/javascript"></script>
+		<script src="/app/picklist/scripts/common.js;jsessionid=EgYahy9mxTebMk8BbSBNcw__" type="text/javascript"></script>
 
 
 
-<title>Forms and Instructions (PDF)</title>
+<title>Draft Tax Forms</title>
+
 
 
 
@@ -66,8 +66,7 @@
 
 
 <div id="picklistContentPane">
-
-<div class="pageLabel">Forms and Instructions (PDF)</div>
+<div class="pageLabel">Draft Tax Forms</div>
 
 <div class="instructionsBaseIRS">
 	<table>
@@ -110,20 +109,16 @@
 
 
 
-<div class="picklistFormFrmInstr">
-	<form method="GET" action="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__"/>
-		
-		
+<div class=picklistFormDTF>
+<form method="GET" action="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__"/>
 <table>
 <tr>
-
 	<td><b><label for="searchFor">Find</label></b></td>
 	<td><INPUT ID="searchFor" TYPE=text VALUE="" NAME="value" SIZE="20" maxlength="30"></td>
 	<td><b><label for="criteria">in</label></b></td>
 	<td>
-			
-			
 			<select name="criteria" >
+
 			
 									
 				
@@ -156,7 +151,7 @@
 	</td>
 </tr>
 </table>
-	</form>
+</form>
 </div>
 
 
@@ -187,8 +182,6 @@
 
 
 
-
-
  
 
 <div class=picklistTable>
@@ -197,7 +190,7 @@
     <th class="FormNumber" scope="col">
       <b>
         
- 	    
+        
 		
         
        		
@@ -207,90 +200,90 @@
           
        	
         
-        <a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+        <a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
 		"><span class="picklistColumnHeader">Product Number</span></a>
 			
         		
-					<a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
-					"><img src="/app/picklist/images/ascendingArrows.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" alt="Sorted Ascending" title="Sorted Ascending" /></a>
+					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+					"><img src="/app/picklist/images/ascendingArrows.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__" alt="Sorted Ascending" title="Sorted Ascending" /></a>
 				
 				
 			
 
-	    
-		<a onclick="returnLink('/app/picklist/help/formsInstructionsFormNumber.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsFormNumber.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__' alt="Help on Form Number" title="Help on Form Number" />
-		</a>
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsFormNumber.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsFormNumber.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__' alt="Help on Form Number" title="Help on Form Number" />
+        </a>
       </b>
     </th>
     <th class="Title" scope="col">
       <b>
         
-	    
+        
 		
         
        	
-        <a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-		"><span class="picklistColumnHeader">Title</span></a>
+
+        <a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+			"><span class="picklistColumnHeader">Title</span></a>
 			
         		
 				
-					<a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" alt="Not sorted" title="Not sorted" /></a>
+					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__" alt="Not sorted" title="Not sorted" /></a>
 				
 			
-	    
-		<a onclick="returnLink('/app/picklist/help/formsInstructionsTitle.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsTitle.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__' alt="Help on Form Title" title="Help on Form Title" />
-		</a>
+
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsTitle.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsTitle.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__' alt="Help on Title" title="Help on Title" />
+        </a>
        </b>
     </th>
     <th class="CurrentYear" scope="col">
       <b>
         
-	    
+        
 		
         
        	
 
-       	<a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+       	<a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
 		"><span class="picklistColumnHeader">Revision Date</span></a>
 			
         		
 				
-					<a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
-					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" alt="Not sorted" title="Not sorted" /></a>
+       				<a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__" alt="Not sorted" title="Not sorted" /></a>
 				
 			
-
-	    
-		<a onclick="returnLink('/app/picklist/help/formsInstructionsCurrentYearRevDate.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsCurrentYearRevDate.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__' alt="Help on Revision Date" title="Help on Revision Date" />
-		</a>
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsCurrentYearRevDate.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsCurrentYearRevDate.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__' alt="Help on Revision Date" title="Help on Revision Date" />
+        </a>
        </b>
     </th>
     <th class="DateColumn" scope="col">
       <b>
               
-	    
+        
 		
         
        	
-		
-       	<a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+
+       	<a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
 		"><span class="picklistColumnHeader">Posted Date</span></a>
 			
         		
 				
-					<a href="/app/picklist/list/formsInstructions.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
-					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" alt="Not sorted" title="Not sorted" /></a>
+					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__" alt="Not sorted" title="Not sorted" /></a>
 				
 			
-
-	    
-		<a onclick="returnLink('/app/picklist/help/formsInstructionsPostedDate.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/formsInstructionsPostedDate.html;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__" >
-          <img src='/app/picklist/images/questionMark.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__' alt="Help on Posted Date" title="Help on Posted Date" />
-		</a>
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsPostedDate.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsPostedDate.html;jsessionid=EgYahy9mxTebMk8BbSBNcw__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__' alt="Help on Posted Date" title="Help on Posted Date" />
+        </a>
        </b>
     </th>
   </tr>
@@ -328,7 +321,7 @@ You may want to shorten your entry and try again (for example, enter 17 instead 
 	<hr />
 </div>
 
-<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif;jsessionid=yqIXIB3FxeXeYkaOV9F4lQ__' alt="Official Adobe Website" title="Official Adobe Website"/></a>
+<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif;jsessionid=EgYahy9mxTebMk8BbSBNcw__' alt="Official Adobe Website" title="Official Adobe Website"/></a>
 <br>
 <a href="/app/scripts/exit.jsp?dest=http://www.adobe.com">Get Adobe &#174; Reader</a>
 
@@ -336,7 +329,6 @@ You may want to shorten your entry and try again (for example, enter 17 instead 
 
 
 </div>
-
 
 
 			</div> <!-- content -->

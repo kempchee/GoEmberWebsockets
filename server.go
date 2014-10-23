@@ -20,13 +20,13 @@ import (
 
 var (
 	session               *mgo.Session
-	formUpdatesCollection *mgo.Collection
+	finalFormsCollection *mgo.Collection
+	draftFormsCollection *mgo.Collection
 )
 
 type DraftForm struct{
 	Url          string        `bson:"Url" json:"url"`
 	Name         string        `bson:"Name" json:"name"`
-	Year         string        `bson:"Year" json:"year"`
 	Description  string        `bson:"Description" json:"description"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
@@ -35,7 +35,7 @@ type DraftForm struct{
 }
 
 type DraftForms struct {
-	DraftForms []DraftForm `json:"links"`
+	DraftForms []DraftForm `json:"draft_forms"`
 }
 
 type Link struct {
@@ -98,16 +98,15 @@ func main() {
 	defer session.Close()
 	// Optional. Switch the session to a monotonic behavior.
 	session.SetMode(mgo.Monotonic, true)
-	formUpdatesCollection = session.DB("irsForms").C("formUpdates")
+	finalFormsCollection = session.DB("irsForms").C("finalForms")
+	draftFormsCollection=session.DB("irsForms").C("draftForms")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/sockets", SocketsHandler)
 	r.HandleFunc("/links", getLinksHandler).Methods("GET")
 	r.HandleFunc("/updateLinks", UpdateLinksHandler).Methods("POST")
-	r.HandleFunc("/deleteLinks", DeleteLinksHandler).Methods("POST")
 	r.HandleFunc("/draft_forms", DraftFormsHandler).Methods("GET")
 	r.HandleFunc("/update_draft_forms", UpdateDraftFormsHandler).Methods("POST")
-	r.HandleFunc("/delete_all_draft_forms", DeleteDraftFormsHandler).Methods("POST")
 	r.HandleFunc("/form_report_items", createFormReportHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
@@ -117,13 +116,13 @@ func main() {
 }
 
 func DeleteLinksHandler(w http.ResponseWriter, r *http.Request) {
-	formUpdatesCollection.RemoveAll(nil)
+	finalFormsCollection.RemoveAll(nil)
 	w.Write([]byte(nil))
 }
 
 func doesUpdateExist(query bson.M) bool {
 	var formUpdate Link
-	error := formUpdatesCollection.Find(query).One(&formUpdate)
+	error := finalFormsCollection.Find(query).One(&formUpdate)
 	if error != nil {
 		return false
 	} else {
@@ -167,7 +166,7 @@ func createFormReportHandler(w http.ResponseWriter, r *http.Request) {
 	var formUpdates []FormReportItem
 	for _,name:=range names{
 		var update FormReportItem
-		result:=formUpdatesCollection.Find(bson.M{"Name":name})
+		result:=finalFormsCollection.Find(bson.M{"Name":name})
 		count,_:=result.Count()
 		if count>0{
 			result.One(&update)
@@ -198,7 +197,7 @@ func createFormReportHandler(w http.ResponseWriter, r *http.Request) {
 
 func getLinksHandler(w http.ResponseWriter, r *http.Request) {
 	var formUpdates []Link
-	formUpdatesCollection.Find(nil).All(&formUpdates)
+	finalFormsCollection.Find(nil).All(&formUpdates)
 	if len(formUpdates) > 0 {
 		structLinks := Links{formUpdates}
 		jsonLinks, _ := json.Marshal(structLinks)
@@ -209,16 +208,121 @@ func getLinksHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {}
+func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var currentIndex int64
+	var links []string
+	var names []string
+	var descriptions []string
+	var revisionDates []string
+	var postedDates []string
+	currentIndex = 0
+	for i := 0; ; i++ {
+		fmt.Println("NEW GROUP")
+		resp, err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html?indexOfFirstRow=" + strconv.FormatInt(currentIndex*25, 10) + "&sortColumn=sortOrder&value=&criteria=&resultsPerPage=25&isDescending=false")
+		//resp, err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
+		if err != nil {
+			fmt.Println("here")
+			panic(err)
+		}
 
-func DeleteDraftFormsHandler(w http.ResponseWriter, r *http.Request) {}
+		body, newError := ioutil.ReadAll(resp.Body)
+		if newError != nil {
+			fmt.Println("here")
+			panic(err)
+		}
+		// write whole the body
+		err = ioutil.WriteFile("output.txt", body, 0644)
+		if err != nil {
+			fmt.Println("here")
+			panic(err)
+		}
+
+		doc, _ := gokogiri.ParseHtml([]byte(body))
+		rowsFinder := xpath.Compile("//table[@class='picklist-dataTable']/tr")
+		nameFinder := xpath.Compile("//td/a/text()")
+		linkFinder := xpath.Compile("//td/a/@href")
+		descriptionFinder := xpath.Compile("//td[2]/text()")
+		revisionDateFinder := xpath.Compile("//td[3]/text()")
+		postedDateFinder := xpath.Compile("//td[4]/text()")
+		rows, _ := doc.Root().Search(rowsFinder)
+		if len(rows) == 1 {
+			break
+		}
+
+		for i := 0; i < len(rows); i++ {
+			rowHtml, _ := gokogiri.ParseHtml([]byte(rows[i].String()))
+			link, _ := rowHtml.Search(linkFinder)
+			name, _ := rowHtml.Search(nameFinder)
+			description, _ := rowHtml.Search(descriptionFinder)
+			revisionDate, _ := rowHtml.Search(revisionDateFinder)
+			postedDate, _ := rowHtml.Search(postedDateFinder)
+			if len(links)%26 != 0 {
+				url, _ := url.Parse(link[0].String())
+				links = append(links, "http://www.irs.gov"+url.Path)
+			} else {
+				links = append(links, "")
+			}
+			if len(names)%26 != 0 {
+				names = append(names, name[0].String())
+			} else {
+				names = append(names, "")
+			}
+			if len(descriptions)%26 != 0 {
+				descriptions = append(descriptions, description[0].String())
+			} else {
+				descriptions = append(descriptions, "")
+			}
+			if len(revisionDates)%26 != 0 {
+				revisionDates = append(revisionDates, revisionDate[0].String())
+			} else {
+				revisionDates = append(revisionDates, "")
+			}
+			if len(postedDates)%26 != 0 {
+				postedDates = append(postedDates, postedDate[0].String())
+			} else {
+				postedDates = append(postedDates, "")
+			}
+		}
+		currentIndex++
+	}
+	var newDraftForms []DraftForm
+	for i := 0; i < len(links); i++ {
+		if links[i] == "" {
+		} else {
+			newDraftForm:=DraftForm{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]),false, bson.NewObjectId()}
+
+			if(string(newDraftForm.RevisionDate[0])=="2"&&string(newDraftForm.RevisionDate[1])=="0"){
+				newDraftForm.AnnualUpdate=true
+			}else{
+				newDraftForm.AnnualUpdate=false
+			}
+			newDraftForms = append(newDraftForms, newDraftForm)
+		}
+	}
+	for i := 0; i < len(newDraftForms); i++ {
+		count, _ := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name), "PostedDate": strings.TrimSpace(newDraftForms[i].PostedDate)}).Count()
+		if count == 0 {
+			draftFormsCollection.Insert(&newDraftForms[i])
+		} else {
+		}
+	}
+
+	var formUpdates []DraftForm
+	draftFormsCollection.Find(nil).All(&formUpdates)
+	structLinks := DraftForms{formUpdates}
+	jsonLinks, _ := json.Marshal(structLinks)
+	w.Write([]byte(jsonLinks))
+}
+
 
 func DraftFormsHandler(w http.ResponseWriter, r *http.Request) {
 	var formUpdates []DraftForm
-	formUpdatesCollection.Find(nil).All(&formUpdates)
+	draftFormsCollection.Find(nil).All(&formUpdates)
 	if len(formUpdates) > 0 {
 		structLinks := DraftForms{formUpdates}
 		jsonLinks, _ := json.Marshal(structLinks)
+
 		w.Write([]byte(jsonLinks))
 	} else {
 		w.Write([]byte(`{"draft_forms":[]}`))
@@ -239,7 +343,6 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("NEW GROUP")
 		resp, err := http.Get("http://apps.irs.gov/app/picklist/list/formsInstructions.html?indexOfFirstRow=" + strconv.FormatInt(currentIndex*25, 10) + "&sortColumn=sortOrder&value=&criteria=&resultsPerPage=25&isDescending=false")
 		//resp, err := http.Get("http://apps.irs.gov/app/picklist/list/draftTaxForms.html")
-		//resp,err := http.Get("http://www.irs.gov/pub/irs-dft/i8962--dft.pdf")
 		if err != nil {
 			fmt.Println("here")
 			panic(err)
@@ -320,16 +423,16 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	for i := 0; i < len(newLinks); i++ {
-		count, _ := formUpdatesCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name), "PostedDate": strings.TrimSpace(newLinks[i].PostedDate)}).Count()
+		count, _ := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name), "PostedDate": strings.TrimSpace(newLinks[i].PostedDate)}).Count()
 		if count == 0 {
-			formUpdatesCollection.Insert(&newLinks[i])
+			finalFormsCollection.Insert(&newLinks[i])
 		} else {
 		}
 	}
 	//structLinks := Links{newLinks}
 	//	jsonLinks, _ := json.Marshal(structLinks)
 	var formUpdates []Link
-	formUpdatesCollection.Find(nil).All(&formUpdates)
+	finalFormsCollection.Find(nil).All(&formUpdates)
 	structLinks := Links{formUpdates}
 	jsonLinks, _ := json.Marshal(structLinks)
 	w.Write([]byte(jsonLinks))
