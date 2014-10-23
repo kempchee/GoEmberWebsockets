@@ -19,18 +19,19 @@ import (
 )
 
 var (
-	session               *mgo.Session
+	session              *mgo.Session
 	finalFormsCollection *mgo.Collection
 	draftFormsCollection *mgo.Collection
 )
 
-type DraftForm struct{
+type DraftForm struct {
 	Url          string        `bson:"Url" json:"url"`
 	Name         string        `bson:"Name" json:"name"`
 	Description  string        `bson:"Description" json:"description"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
-	AnnualUpdate bool	`bson:"AnnualUpdate" json:"annual_update"`
+	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
+	Superceded bool	`bson:"Superceded" json:"superceded"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
@@ -44,7 +45,7 @@ type Link struct {
 	Description  string        `bson:"Description" json:"description"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
-	AnnualUpdate bool	`bson:"AnnualUpdate" json:"annual_update"`
+	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
@@ -54,12 +55,27 @@ type FormReportItem struct {
 	Year         string        `bson:"Year" json:"year"`
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
-	AnnualUpdate bool	`bson:"AnnualUpdate" json:"annual_update"`
+	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
+	Id           bson.ObjectId `bson:"_id" json:"id"`
+}
+
+type DraftFormReportItem struct {
+	Url          string        `bson:"Url" json:"url"`
+	Name         string        `bson:"Name" json:"name"`
+	Year         string        `bson:"Year" json:"year"`
+	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
+	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
+	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
+	FinalForm bool							`bson:"FinalForm" json:"final_form"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
 type FormReportItems struct {
 	FormReportItems []FormReportItem `json:"form_report_items"`
+}
+
+type DraftFormReportItems struct {
+	DraftFormReportItems []DraftFormReportItem `json:"draft_form_report_items"`
 }
 
 type Links struct {
@@ -99,7 +115,7 @@ func main() {
 	// Optional. Switch the session to a monotonic behavior.
 	session.SetMode(mgo.Monotonic, true)
 	finalFormsCollection = session.DB("irsForms").C("finalForms")
-	draftFormsCollection=session.DB("irsForms").C("draftForms")
+	draftFormsCollection = session.DB("irsForms").C("draftForms")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/sockets", SocketsHandler)
@@ -108,6 +124,7 @@ func main() {
 	r.HandleFunc("/draft_forms", DraftFormsHandler).Methods("GET")
 	r.HandleFunc("/update_draft_forms", UpdateDraftFormsHandler).Methods("POST")
 	r.HandleFunc("/form_report_items", createFormReportHandler).Methods("GET")
+	r.HandleFunc("/draft_form_report_items", createDraftFormReportHandler).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 
@@ -119,6 +136,9 @@ func DeleteLinksHandler(w http.ResponseWriter, r *http.Request) {
 	finalFormsCollection.RemoveAll(nil)
 	w.Write([]byte(nil))
 }
+
+
+
 
 func doesUpdateExist(query bson.M) bool {
 	var formUpdate Link
@@ -133,10 +153,10 @@ func doesUpdateExist(query bson.M) bool {
 func createFormReportHandler(w http.ResponseWriter, r *http.Request) {
 
 	year := r.URL.Query()["year"][0]
-	group:=r.URL.Query()["group"][0]
+	group := r.URL.Query()["group"][0]
 	var names []string
-	if(group=="1065"){
-		names=[]string{"Form 4562",
+	if group == "1065" {
+		names = []string{"Form 4562",
 			"Form 8925",
 			"Form 8825",
 			"Form 1065 (Schedule D)",
@@ -145,42 +165,41 @@ func createFormReportHandler(w http.ResponseWriter, r *http.Request) {
 			"Form 1065 (Schedule B-1)",
 			"Form 1065 (Schedule K-1)",
 			"Form 4562",
-			 "Form 4797",
-			 "Form 8453-PE",
+			"Form 4797",
+			"Form 8453-PE",
 			"Form 8882",
-			 "Form 1065 (Schedule C)",
+			"Form 1065 (Schedule C)",
 			"Form 1065 (Schedule M-3)",
-			 "Form 1125-A",
-			 "Form 8824",
+			"Form 1125-A",
+			"Form 8824",
 			"Form 8865",
 			"Form 8865 (Schedule K-1)",
-			 "Form 8308",
-			 "Form 8949",
-			 "Form 6252",
-			 "Form 1040 (Schedule F)",
+			"Form 8308",
+			"Form 8949",
+			"Form 6252",
+			"Form 1040 (Schedule F)",
 			"Form 1065-B",
-			 "Form 8453-B"}
+			"Form 8453-B"}
 	}
 
-	fmt.Println(year)
 	var formUpdates []FormReportItem
-	for _,name:=range names{
+	for _, name := range names {
 		var update FormReportItem
-		result:=finalFormsCollection.Find(bson.M{"Name":name})
-		count,_:=result.Count()
-		if count>0{
+		result := finalFormsCollection.Find(bson.M{"Name": name})
+		count, _ := result.Count()
+		if count > 0 {
 			result.One(&update)
-		}else{
-			update.Url="N/A"
-			update.Name=name
-			update.Year="N/A"
-			update.RevisionDate="N/A"
-			update.PostedDate="N/A"
-			update.Id=bson.NewObjectId()
-			update.AnnualUpdate=false
+		} else {
+			update.Url = "N/A"
+			update.Name = name
+			update.Year = "N/A"
+			update.RevisionDate = "N/A"
+			update.PostedDate = "N/A"
+			update.Id = bson.NewObjectId()
+			update.AnnualUpdate = false
 		}
 		fmt.Println(update)
-		formUpdates=append(formUpdates,update)
+		formUpdates = append(formUpdates, update)
 	}
 
 	for i := 0; i < len(formUpdates); i++ {
@@ -290,21 +309,34 @@ func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(links); i++ {
 		if links[i] == "" {
 		} else {
-			newDraftForm:=DraftForm{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]),false, bson.NewObjectId()}
+			newDraftForm := DraftForm{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]), false,false, bson.NewObjectId()}
 
-			if(string(newDraftForm.RevisionDate[0])=="2"&&string(newDraftForm.RevisionDate[1])=="0"){
-				newDraftForm.AnnualUpdate=true
-			}else{
-				newDraftForm.AnnualUpdate=false
+			if string(newDraftForm.RevisionDate[0]) == "2" && string(newDraftForm.RevisionDate[1]) == "0" {
+				newDraftForm.AnnualUpdate = true
+			} else {
+				newDraftForm.AnnualUpdate = false
 			}
 			newDraftForms = append(newDraftForms, newDraftForm)
 		}
 	}
 	for i := 0; i < len(newDraftForms); i++ {
-		count, _ := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name), "PostedDate": strings.TrimSpace(newDraftForms[i].PostedDate)}).Count()
+		foundDraftForms := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name)})
+		count,_:=foundDraftForms.Count()
 		if count == 0 {
 			draftFormsCollection.Insert(&newDraftForms[i])
 		} else {
+			identicalDraftForms := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name), "PostedDate": strings.TrimSpace(newDraftForms[i].PostedDate),"RevisionDate":strings.TrimSpace(newDraftForms[i].RevisionDate)})
+			identicalCount,_:=identicalDraftForms.Count()
+			fmt.Println(identicalCount)
+			if identicalCount==0{
+				var draftFormsList []DraftForm
+				foundDraftForms.All(&draftFormsList)
+				for _,draftForm:=range draftFormsList{
+					draftForm.Superceded=true
+					draftFormsCollection.Update(bson.M{"_id":draftForm.Id},bson.M{"$set":bson.M{"Superceded":true}})
+				}
+				draftFormsCollection.Insert(&newDraftForms[i])
+			}
 		}
 	}
 
@@ -315,6 +347,107 @@ func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(jsonLinks))
 }
 
+func createDraftFormReportHandler(w http.ResponseWriter, r *http.Request) {
+	year := r.URL.Query()["year"][0]
+	group := r.URL.Query()["group"][0]
+	var names []string
+	if group == "1065" {
+		names = []string{"Form 4562",
+			"Form 8925",
+			"Form 8825",
+			"Form 1065 (Schedule D)",
+			"Form 1065-B",
+			"Form 1065",
+			"Form 1065 (Schedule B-1)",
+			"Form 1065 (Schedule K-1)",
+			"Form 4562",
+			"Form 4797",
+			"Form 8453-PE",
+			"Form 8882",
+			"Form 1065 (Schedule C)",
+			"Form 1065 (Schedule M-3)",
+			"Form 1125-A",
+			"Form 8824",
+			"Form 8865",
+			"Form 8865 (Schedule K-1)",
+			"Form 8308",
+			"Form 8949",
+			"Form 6252",
+			"Form 1040 (Schedule F)",
+			"Form 1065-B",
+			"Form 8453-B"}
+	}
+
+	var formUpdates []DraftFormReportItem
+	for _, name := range names {
+		var update DraftFormReportItem
+		resultDraft := draftFormsCollection.Find(bson.M{"Name": name})
+		resultFinal:=finalFormsCollection.Find(bson.M{"Name":name,"RevisionDate":year})
+		draftCount, _ := resultDraft.Count()
+		finalCount,_:=resultFinal.Count()
+		if draftCount > 0 {
+			if draftCount==1{
+				resultDraft.One(&update)
+			}else{
+				//highestYear=0
+				//highestMonth=0
+				var draftResults []DraftForm
+				resultDraft.All(&draftResults)
+				allSuperceded:=true
+				for _,draftForm:=range draftResults{
+					if draftForm.Superceded{}else{
+						allSuperceded=false
+						update.Url=draftForm.Url
+						update.Name=draftForm.Name
+						update.Year=year
+						update.RevisionDate=draftForm.RevisionDate
+						update.PostedDate=draftForm.PostedDate
+						update.AnnualUpdate=draftForm.AnnualUpdate
+						update.FinalForm=false
+						update.Id=bson.NewObjectId()
+						break
+					}
+				}
+				if allSuperceded&&finalCount>0{
+					resultFinal.One(&update)
+					update.FinalForm=true
+				}else{
+					update.Url = "N/A"
+					update.Name = name
+					update.Year = "N/A"
+					update.RevisionDate = "N/A"
+					update.PostedDate = "N/A"
+					update.Id = bson.NewObjectId()
+					update.AnnualUpdate = false
+				}
+			}
+		} else if finalCount>0{
+			resultFinal.One(&update)
+			update.FinalForm=true
+		}else {
+			update.Url = "N/A"
+			update.Name = name
+			update.Year = "N/A"
+			update.RevisionDate = "N/A"
+			update.PostedDate = "N/A"
+			update.Id = bson.NewObjectId()
+			update.AnnualUpdate = false
+		}
+
+		formUpdates = append(formUpdates, update)
+	}
+
+	for i := 0; i < len(formUpdates); i++ {
+		formUpdates[i].Year = year
+	}
+	if len(formUpdates) > 0 {
+		structLinks := DraftFormReportItems{formUpdates}
+		jsonLinks, _ := json.Marshal(structLinks)
+		w.Write([]byte(jsonLinks))
+	} else {
+		w.Write([]byte(`{"draft_form_report_items":[]}`))
+	}
+}
 
 func DraftFormsHandler(w http.ResponseWriter, r *http.Request) {
 	var formUpdates []DraftForm
@@ -412,21 +545,22 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(links); i++ {
 		if links[i] == "" {
 		} else {
-			newLink:=Link{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]),false, bson.NewObjectId()}
+			newLink := Link{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]), false, bson.NewObjectId()}
 
-			if(string(newLink.RevisionDate[0])=="2"&&string(newLink.RevisionDate[1])=="0"){
-				newLink.AnnualUpdate=true
-			}else{
-				newLink.AnnualUpdate=false
+			if string(newLink.RevisionDate[0]) == "2" && string(newLink.RevisionDate[1]) == "0" {
+				newLink.AnnualUpdate = true
+			} else {
+				newLink.AnnualUpdate = false
 			}
 			newLinks = append(newLinks, newLink)
 		}
 	}
 	for i := 0; i < len(newLinks); i++ {
-		count, _ := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name), "PostedDate": strings.TrimSpace(newLinks[i].PostedDate)}).Count()
+		count, _ := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name),"Description":strings.TrimSpace(newLinks[i].Description),"RevisionDate":strings.TrimSpace(newLinks[i].RevisionDate)}).Count()
 		if count == 0 {
 			finalFormsCollection.Insert(&newLinks[i])
 		} else {
+			fmt.Println(newLinks[i].Name)
 		}
 	}
 	//structLinks := Links{newLinks}
