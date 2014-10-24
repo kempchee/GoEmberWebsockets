@@ -362,6 +362,7 @@ var attr=DS.attr;
     },
     actions:{
       loadUpdates:function(){
+        $(".fa-refresh").addClass("fa-spin")
         var route=this;
         jQuery.ajax({
           url:"/update_draft_forms",
@@ -372,9 +373,10 @@ var attr=DS.attr;
               var serializedDraftForm=route.store.serializerFor("DraftForm").normalize(App.DraftForm,draftForm)
               route.store.update("DraftForm",serializedDraftForm)
             })
+            $(".fa-refresh").removeClass("fa-spin")
           },
           error:function(){
-
+            $(".fa-refresh").removeClass("fa-spin")
           }
         })
       },
@@ -400,6 +402,7 @@ var attr=DS.attr;
     },
     actions:{
       loadUpdates:function(){
+        $(".fa-refresh").addClass("fa-spin")
         var route=this;
         jQuery.ajax({
           url:"/updateLinks",
@@ -410,9 +413,10 @@ var attr=DS.attr;
               var serializedLink=route.store.serializerFor("Link").normalize(App.Link,link)
               route.store.update("Link",serializedLink)
             })
+            $(".fa-refresh").removeClass("fa-spin")
           },
           error:function(){
-
+            $(".fa-refresh").removeClass("fa-spin")
           }
         })
       },

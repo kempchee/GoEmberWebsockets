@@ -31,7 +31,7 @@ type DraftForm struct {
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
 	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
-	Superceded bool	`bson:"Superceded" json:"superceded"`
+	Superceded   bool          `bson:"Superceded" json:"superceded"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
@@ -66,7 +66,7 @@ type DraftFormReportItem struct {
 	RevisionDate string        `bson:"RevisionDate" json:"revision_date"`
 	PostedDate   string        `bson:"PostedDate" json:"posted_date"`
 	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
-	FinalForm bool							`bson:"FinalForm" json:"final_form"`
+	FinalForm    bool          `bson:"FinalForm" json:"final_form"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
 }
 
@@ -136,9 +136,6 @@ func DeleteLinksHandler(w http.ResponseWriter, r *http.Request) {
 	finalFormsCollection.RemoveAll(nil)
 	w.Write([]byte(nil))
 }
-
-
-
 
 func doesUpdateExist(query bson.M) bool {
 	var formUpdate Link
@@ -309,7 +306,7 @@ func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(links); i++ {
 		if links[i] == "" {
 		} else {
-			newDraftForm := DraftForm{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]), false,false, bson.NewObjectId()}
+			newDraftForm := DraftForm{strings.TrimSpace(links[i]), strings.TrimSpace(names[i]), strings.TrimSpace(descriptions[i]), strings.TrimSpace(revisionDates[i]), strings.TrimSpace(postedDates[i]), false, false, bson.NewObjectId()}
 
 			if string(newDraftForm.RevisionDate[0]) == "2" && string(newDraftForm.RevisionDate[1]) == "0" {
 				newDraftForm.AnnualUpdate = true
@@ -321,19 +318,62 @@ func UpdateDraftFormsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	for i := 0; i < len(newDraftForms); i++ {
 		foundDraftForms := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name)})
-		count,_:=foundDraftForms.Count()
+		count, _ := foundDraftForms.Count()
 		if count == 0 {
+			supercedingFinalForms := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name)})
+			supercedingCount, _ := supercedingFinalForms.Count()
+			if supercedingCount>0{
+				var supercedingFormsList []Link
+				supercedingFinalForms.All(&supercedingFormsList)
+				for _, finalForm := range supercedingFormsList {
+					if newDraftForms[i].Name=="Form 8882"{
+						fmt.Println(finalForm)
+						fmt.Println(newDraftForms[i])
+					}
+					if finalForm.RevisionDate>=newDraftForms[i].RevisionDate{
+						fmt.Println(newDraftForms[i].Name)
+						newDraftForms[i].Superceded=true
+						break
+					}
+				}
+			}
 			draftFormsCollection.Insert(&newDraftForms[i])
 		} else {
-			identicalDraftForms := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name), "PostedDate": strings.TrimSpace(newDraftForms[i].PostedDate),"RevisionDate":strings.TrimSpace(newDraftForms[i].RevisionDate)})
-			identicalCount,_:=identicalDraftForms.Count()
-			fmt.Println(identicalCount)
-			if identicalCount==0{
+			identicalDraftForms := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name), "PostedDate": strings.TrimSpace(newDraftForms[i].PostedDate), "RevisionDate": strings.TrimSpace(newDraftForms[i].RevisionDate)})
+			identicalCount, _ := identicalDraftForms.Count()
+			if identicalCount == 0 {
 				var draftFormsList []DraftForm
 				foundDraftForms.All(&draftFormsList)
-				for _,draftForm:=range draftFormsList{
-					draftForm.Superceded=true
-					draftFormsCollection.Update(bson.M{"_id":draftForm.Id},bson.M{"$set":bson.M{"Superceded":true}})
+				for _, draftForm := range draftFormsList {
+					var postedDate string
+					var postedDateNew string
+					postedDateNew = strings.Split(newDraftForms[i].PostedDate, "/")[2] + strings.Split(newDraftForms[i].PostedDate, "/")[0] + strings.Split(newDraftForms[i].PostedDate, "/")[1]
+					postedDate = strings.Split(draftForm.PostedDate, "/")[2] + strings.Split(draftForm.PostedDate, "/")[0] + strings.Split(draftForm.PostedDate, "/")[1]
+					fmt.Println(postedDateNew)
+					fmt.Println(postedDate)
+					if postedDateNew > postedDate {
+						draftForm.Superceded = true
+						draftFormsCollection.Update(bson.M{"_id": draftForm.Id}, bson.M{"$set": bson.M{"Superceded": true}})
+					}else if postedDateNew<postedDate{
+						newDraftForms[i].Superceded=true
+					}
+				}
+				supercedingFinalForms := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newDraftForms[i].Name)})
+				supercedingCount, _ := supercedingFinalForms.Count()
+				if supercedingCount>0{
+					var supercedingFormsList []Link
+					supercedingFinalForms.All(&supercedingFormsList)
+					for _, finalForm := range supercedingFormsList {
+						if newDraftForms[i].Name=="Form 8882"{
+							fmt.Println(finalForm)
+							fmt.Println(newDraftForms[i])
+						}
+						if finalForm.RevisionDate>=newDraftForms[i].RevisionDate{
+							fmt.Println(newDraftForms[i].Name)
+							newDraftForms[i].Superceded=true
+							break
+						}
+					}
 				}
 				draftFormsCollection.Insert(&newDraftForms[i])
 			}
@@ -381,50 +421,26 @@ func createDraftFormReportHandler(w http.ResponseWriter, r *http.Request) {
 	var formUpdates []DraftFormReportItem
 	for _, name := range names {
 		var update DraftFormReportItem
-		resultDraft := draftFormsCollection.Find(bson.M{"Name": name})
-		resultFinal:=finalFormsCollection.Find(bson.M{"Name":name,"RevisionDate":year})
+		resultDraft := draftFormsCollection.Find(bson.M{"Name": name,"Superceded":false})
+		resultFinal := finalFormsCollection.Find(bson.M{"Name": name})
+	//	twoDigitYear:=string(year[2])+string(year[3])
 		draftCount, _ := resultDraft.Count()
-		finalCount,_:=resultFinal.Count()
+		finalCount, _ := resultFinal.Count()
 		if draftCount > 0 {
-			if draftCount==1{
-				resultDraft.One(&update)
-			}else{
-				//highestYear=0
-				//highestMonth=0
-				var draftResults []DraftForm
-				resultDraft.All(&draftResults)
-				allSuperceded:=true
-				for _,draftForm:=range draftResults{
-					if draftForm.Superceded{}else{
-						allSuperceded=false
-						update.Url=draftForm.Url
-						update.Name=draftForm.Name
-						update.Year=year
-						update.RevisionDate=draftForm.RevisionDate
-						update.PostedDate=draftForm.PostedDate
-						update.AnnualUpdate=draftForm.AnnualUpdate
-						update.FinalForm=false
-						update.Id=bson.NewObjectId()
-						break
-					}
-				}
-				if allSuperceded&&finalCount>0{
-					resultFinal.One(&update)
-					update.FinalForm=true
-				}else{
-					update.Url = "N/A"
-					update.Name = name
-					update.Year = "N/A"
-					update.RevisionDate = "N/A"
-					update.PostedDate = "N/A"
-					update.Id = bson.NewObjectId()
-					update.AnnualUpdate = false
-				}
-			}
-		} else if finalCount>0{
+			resultDraft.One(&update)
+		} else if finalCount > 0 {
 			resultFinal.One(&update)
-			update.FinalForm=true
-		}else {
+			if update.AnnualUpdate&&update.RevisionDate<year{
+				update.Url = "N/A"
+				update.Name = name
+				update.Year = "N/A"
+				update.RevisionDate = "N/A"
+				update.PostedDate = "N/A"
+				update.Id = bson.NewObjectId()
+			}else{
+				update.FinalForm = true
+			}
+		} else {
 			update.Url = "N/A"
 			update.Name = name
 			update.Year = "N/A"
@@ -433,7 +449,6 @@ func createDraftFormReportHandler(w http.ResponseWriter, r *http.Request) {
 			update.Id = bson.NewObjectId()
 			update.AnnualUpdate = false
 		}
-
 		formUpdates = append(formUpdates, update)
 	}
 
@@ -556,8 +571,20 @@ func UpdateLinksHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	for i := 0; i < len(newLinks); i++ {
-		count, _ := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name),"Description":strings.TrimSpace(newLinks[i].Description),"RevisionDate":strings.TrimSpace(newLinks[i].RevisionDate)}).Count()
+		count, _ := finalFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name), "Description": strings.TrimSpace(newLinks[i].Description), "RevisionDate": strings.TrimSpace(newLinks[i].RevisionDate)}).Count()
 		if count == 0 {
+			var draftFormsList []DraftForm
+			foundDraftForms := draftFormsCollection.Find(bson.M{"Name": strings.TrimSpace(newLinks[i].Name)})
+			count, _ := foundDraftForms.Count()
+			if count > 0 {
+				foundDraftForms.All(&draftFormsList)
+				for _, draftForm := range draftFormsList {
+					if newLinks[i].RevisionDate >= draftForm.RevisionDate {
+						draftForm.Superceded = true
+						draftFormsCollection.Update(bson.M{"_id": draftForm.Id}, bson.M{"$set": bson.M{"Superceded": true}})
+					}
+				}
+			}
 			finalFormsCollection.Insert(&newLinks[i])
 		} else {
 			fmt.Println(newLinks[i].Name)

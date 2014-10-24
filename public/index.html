@@ -216,7 +216,7 @@
     <tbody>
       {{#each}}
         <tr {{bind-attr class="current:success:danger"}}>
-          <td>{{name}}</td>
+          <td><a href={{unbound url}}  class="nameTooltip">{{name}}</a></td>
           <td>{{revisionDate}}</td>
           <td>{{annualUpdate}}</td>
           <td>{{current}}</td>
@@ -246,17 +246,17 @@
       <tr>
         <th>Form Name</th>
         <th>Revision Date</th>
-        <th>Updated Annually?</th>
-        <th>Current as of {{formReportYear}} Tax Year</th>
+        <th>Posted Date</th>
+        <th>Final Form</th>
       </tr>
     </thead>
     <tbody>
       {{#each}}
         <tr {{bind-attr class="rowClass"}}>
-          <td>{{name}}</td>
+          <td><a href={{unbound url}}  class="nameTooltip">{{name}}</a></td>
           <td>{{revisionDate}}</td>
-          <td>{{annualUpdate}}</td>
-          <td>{{current}}</td>
+          <td>{{postedDate}}</td>
+          <td>{{finalForm}}</td>
         </tr>
       {{/each}}
     </tbody>
