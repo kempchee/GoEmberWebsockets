@@ -20,6 +20,17 @@ var attr=DS.attr;
   //  picture: DS.attr('string')
   });
 
+  App.DraftForm = DS.Model.extend({
+    url:attr(),
+    name:attr(),
+    postedDate:attr(),
+    revisionDate:attr(),
+    description:attr(),
+    annualUpdate:attr(),
+    deleted:attr(),
+    superceded:attr()
+  });
+
   App.FormReportItem = DS.Model.extend({
     url:attr(),
     name:attr(),
@@ -43,10 +54,34 @@ var attr=DS.attr;
   //  picture: DS.attr('string')
   });
 
+  App.DraftFormReportItem = DS.Model.extend({
+    url:attr(),
+    name:attr(),
+    postedDate:attr(),
+    revisionDate:attr(),
+    description:attr(),
+    annualUpdate:attr(),
+    rowClass:function(){
+      if(this.get("finalForm")){
+        return "success"
+      }
+      else if(this.get("revisionDate")!="N/A"){
+        return "warning"
+      }else{
+        return "danger"
+      }
+    }.property("revisionDate","year"),
+    year:attr(),
+    finalForm:attr()
+  //  link: DS.attr('string'),
+  //  picture: DS.attr('string')
+  });
+
   App.Router.map(function() {
     this.route("updatedFormsReport")
     this.route("allForms",{path:"/"})
     this.route("draftForms")
+    this.route("draftFormsReport")
 
   });
 
@@ -56,7 +91,13 @@ var attr=DS.attr;
     }
   })
 
-  App.UpdatedFormsReportController=Ember.ArrayController.extend({
+  App.DraftFormsReportRoute=Ember.Route.extend({
+    model:function(){
+      return this.store.find("draftFormReportItem",{year:2014,group:"1065"})
+    }
+  })
+
+  App.DraftFormsReportController=Ember.ArrayController.extend({
     formReportYear:2014,
     possibleReports:["1065","1120","1040","1120-S"],
     actions:{
@@ -67,15 +108,15 @@ var attr=DS.attr;
     changeReportYear:function(){
       var controller=this;
       jQuery.ajax({
-        url:"form_report_items?year=2014&group="+this.get("selectedReport"),
+        url:"draft_form_report_items?year=2014&group="+this.get("selectedReport"),
         method:"GET",
         success:function(data){
-          controller.store.unloadAll("formReportItem")
-          JSON.parse(data).form_report_items.forEach(function(formReportItem){
-            var serializedFormReportItem=controller.store.serializerFor("formReportItem").normalize(App.FormReportItem,formReportItem)
-            controller.store.update("formReportItem",serializedFormReportItem)
+          controller.store.unloadAll("draftFormReportItem")
+          JSON.parse(data).draft_form_report_items.forEach(function(draftFormReportItem){
+            var serializedDraftFormReportItem=controller.store.serializerFor("draftFormReportItem").normalize(App.DraftFormReportItem,draftFormReportItem)
+            controller.store.update("draftFormReportItem",serializedDraftFormReportItem)
           })
-          controller.set("model",controller.store.all("formReportItem"))
+          controller.set("model",controller.store.all("draftFormReportItem"))
         },
         error:function(){
 
@@ -196,50 +237,13 @@ var attr=DS.attr;
 	}.property("arrayLength", "perPage","currentPage","filteredLinks.[]"),
   })
 
-  App.AllFormsRoute = Ember.Route.extend({
-    model: function() {
-      return this.store.find("link")
-    },
-    actions:{
-      loadUpdates:function(){
-        var route=this;
-        jQuery.ajax({
-          url:"/updateLinks",
-          method:"POST",
-          success:function(data){
-            console.log(data)
-            data.links.forEach(function(link){
-              var serializedLink=route.store.serializerFor("Link").normalize(App.Link,link)
-              route.store.update("Link",serializedLink)
-            })
-          },
-          error:function(){
-
-          }
-        })
-      },
-      deleteLinks:function(){
-        var route=this;
-        jQuery.ajax({
-          url:"/deleteLinks",
-          method:"POST",
-          success:function(data){
-            route.store.unloadAll("link")
-          },
-          error:function(){
-
-          }
-        })
-      }
-    }
-  });
 
   App.DraftFormsView=Ember.View.extend({
     didInsertElement:function(){
     }
   })
 
-  App.AllFormsController=Ember.ArrayController.extend({
+  App.DraftFormsController=Ember.ArrayController.extend({
     formCount:function(){
 
       return this.get("content.content").length
@@ -358,19 +362,21 @@ var attr=DS.attr;
     },
     actions:{
       loadUpdates:function(){
+        $(".fa-refresh").addClass("fa-spin")
         var route=this;
         jQuery.ajax({
-          url:"/update_draft_finks",
+          url:"/update_draft_forms",
           method:"POST",
           success:function(data){
             console.log(data)
-            data.links.forEach(function(draftForm){
+            data.draft_forms.forEach(function(draftForm){
               var serializedDraftForm=route.store.serializerFor("DraftForm").normalize(App.DraftForm,draftForm)
               route.store.update("DraftForm",serializedDraftForm)
             })
+            $(".fa-refresh").removeClass("fa-spin")
           },
           error:function(){
-
+            $(".fa-refresh").removeClass("fa-spin")
           }
         })
       },
@@ -396,6 +402,7 @@ var attr=DS.attr;
     },
     actions:{
       loadUpdates:function(){
+        $(".fa-refresh").addClass("fa-spin")
         var route=this;
         jQuery.ajax({
           url:"/updateLinks",
@@ -406,9 +413,10 @@ var attr=DS.attr;
               var serializedLink=route.store.serializerFor("Link").normalize(App.Link,link)
               route.store.update("Link",serializedLink)
             })
+            $(".fa-refresh").removeClass("fa-spin")
           },
           error:function(){
-
+            $(".fa-refresh").removeClass("fa-spin")
           }
         })
       },

@@ -15,8 +15,9 @@
       <br>
       <ul class="nav nav-tabs" role="tablist">
         {{#link-to "allForms"  tagName="li" href=false}}{{#link-to "allForms" }}<i class="fa fa-list"></i> Final Forms{{/link-to}}{{/link-to}}
-        {{#link-to "draftForms"  tagName="li" href=false}}{{#link-to "allForms" }}<i class="fa fa-list"></i> Draft Forms{{/link-to}}{{/link-to}}
-        {{#link-to "updatedFormsReport"  tagName="li" href=false}}{{#link-to "updatedFormsReport" }}<i class="fa fa-list-alt"></i> Form Status{{/link-to}}{{/link-to}}
+        {{#link-to "draftForms"  tagName="li" href=false}}{{#link-to "draftForms" }}<i class="fa fa-list"></i> Draft Forms{{/link-to}}{{/link-to}}
+        {{#link-to "updatedFormsReport"  tagName="li" href=false}}{{#link-to "updatedFormsReport" }}<i class="fa fa-list-alt"></i> Final Forms Report{{/link-to}}{{/link-to}}
+        {{#link-to "draftFormsReport"  tagName="li" href=false}}{{#link-to "draftFormsReport" }}<i class="fa fa-list-alt"></i> Draft Forms Report{{/link-to}}{{/link-to}}
       </ul>
       <div class="tab-content">
         {{outlet}}
@@ -41,8 +42,7 @@
                   </div>
                   {{view App.FilterTextBoxView value=filterValue class="form-control"}}
                   <div class="input-group-btn">
-                    <div class="btn btn-info" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
-                    <div class="btn btn-danger" {{action "deleteLinks"}}><i class="fa fa-trash"></i></span> Delete All</div>
+                    <div class="btn btn-success" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
                   </div>
                 </div>
       </div>
@@ -124,8 +124,7 @@
                   </div>
                   {{view App.FilterTextBoxView value=filterValue class="form-control"}}
                   <div class="input-group-btn">
-                    <div class="btn btn-info" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
-                    <div class="btn btn-danger" {{action "deleteLinks"}}><i class="fa fa-trash"></i></span> Delete All</div>
+                    <div class="btn btn-success" {{action "loadUpdates"}}><i class="fa fa-refresh"></i> Update</div>
                   </div>
                 </div>
       </div>
@@ -209,7 +208,7 @@
     <thead>
       <tr>
         <th>Form Name</th>
-        <th>Last Updated</th>
+        <th>Revision Date</th>
         <th>Updated Annually?</th>
         <th>Current as of {{formReportYear}} Tax Year</th>
       </tr>
@@ -217,10 +216,47 @@
     <tbody>
       {{#each}}
         <tr {{bind-attr class="current:success:danger"}}>
-          <td>{{name}}</td>
+          <td><a href={{unbound url}}  class="nameTooltip">{{name}}</a></td>
           <td>{{revisionDate}}</td>
           <td>{{annualUpdate}}</td>
           <td>{{current}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="draftFormsReport">
+  <div class="tab-pane active" id="updatedForms">
+  <div class="clearfix">
+  </div>
+  <br>
+  <form class="form-horizontal col-xs-4">
+    <div class="form-group">
+      <label class="col-xs-4 control-label">Report Type</label>
+      <div class="col-xs-8">
+        {{view Ember.Select content=possibleReports value=selectedReport class="form-control" }}
+      </div>
+    </div>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Form Name</th>
+        <th>Revision Date</th>
+        <th>Posted Date</th>
+        <th>Final Form</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each}}
+        <tr {{bind-attr class="rowClass"}}>
+          <td><a href={{unbound url}}  class="nameTooltip">{{name}}</a></td>
+          <td>{{revisionDate}}</td>
+          <td>{{postedDate}}</td>
+          <td>{{finalForm}}</td>
         </tr>
       {{/each}}
     </tbody>
