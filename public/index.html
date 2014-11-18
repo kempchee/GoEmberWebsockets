@@ -6,18 +6,19 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/leaflet.css">
 </head>
 <body>
 
-  <script type="text/x-handlebars">
+  <script type="text/x-handlebars" id="us">
     <div class="container">
       <h3 class="text-center">Forms and Instructions</h3>
       <br>
       <ul class="nav nav-tabs" role="tablist">
-        {{#link-to "allForms"  tagName="li" href=false}}{{#link-to "allForms" }}<i class="fa fa-list"></i> Final Forms{{/link-to}}{{/link-to}}
-        {{#link-to "draftForms"  tagName="li" href=false}}{{#link-to "draftForms" }}<i class="fa fa-list"></i> Draft Forms{{/link-to}}{{/link-to}}
-        {{#link-to "updatedFormsReport"  tagName="li" href=false}}{{#link-to "updatedFormsReport" }}<i class="fa fa-list-alt"></i> Final Forms Report{{/link-to}}{{/link-to}}
-        {{#link-to "draftFormsReport"  tagName="li" href=false}}{{#link-to "draftFormsReport" }}<i class="fa fa-list-alt"></i> Draft Forms Report{{/link-to}}{{/link-to}}
+        {{#link-to "us.allForms"  tagName="li" href=false}}{{#link-to "us.allForms" }}<i class="fa fa-list"></i> Final Forms{{/link-to}}{{/link-to}}
+        {{#link-to "us.draftForms"  tagName="li" href=false}}{{#link-to "us.draftForms" }}<i class="fa fa-list"></i> Draft Forms{{/link-to}}{{/link-to}}
+        {{#link-to "us.updatedFormsReport"  tagName="li" href=false}}{{#link-to "us.updatedFormsReport" }}<i class="fa fa-list-alt"></i> Final Forms Report{{/link-to}}{{/link-to}}
+        {{#link-to "us.draftFormsReport"  tagName="li" href=false}}{{#link-to "us.draftFormsReport" }}<i class="fa fa-list-alt"></i> Draft Forms Report{{/link-to}}{{/link-to}}
       </ul>
       <div class="tab-content">
         {{outlet}}
@@ -25,7 +26,100 @@
     </div>
   </script>
 
-<script type="text/x-handlebars" id="allForms">
+  <script type="text/x-handlebars" id="states">
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" id="test">
+    <div class="container">
+      <div id="test">
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="states/index">
+    <div class="container">
+      <h1>States</h1>
+      <div id="map"></div>
+    </div>
+  </script>
+<script type="text/x-handlebars" id="application">
+<nav class="navbar navbar-default" role="navigation">
+<div class="container">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="#">TaxForms</a>
+</div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+  <ul class="nav navbar-nav navbar-right">
+    <li>{{#link-to "signIn"}}Sign In {{/link-to}}</li>
+    <li>{{#link-to "signUp"}}Sign Up {{/link-to}}</li>
+  </ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+{{outlet}}
+</script>
+
+  <script type="text/x-handlebars" id="index">
+
+
+<div class="container">
+      <h1>Hi</h1>
+      {{#link-to "us.allForms"}}US Forms{{/link-to}}
+      {{#link-to "states"}}State Forms{{/link-to}}
+      {{#link-to "test"}}Test{{/link-to}}
+    </div>
+  </script>
+
+<script type="text/x-handlebars" id="signIn">
+</script>
+<script type="text/x-handlebars" id="signUp">
+  <div class=" col-xs-6  col-xs-offset-3">
+  <div class="panel panel-default">
+
+  <div class=" panel-heading"><h4>Register an Account</h4></div>
+  <div class="panel-body">
+
+  <form {{action "register"  on="submit"}} id="register-form" class=" form-horizontal col-xs-12">
+
+  <h4 class="text-center">Account Info</h4>
+    <div class="form-group">
+      <label class="control-label col-xs-3 ">User Name*</label>
+      <div class="col-xs-9">
+        {{input value=userName type="text" id="userName" class="form-control" required="true" pattern=".+"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-xs-3 ">Password*</label>
+      <div class="col-xs-9">
+        {{input value=password type="password" id="password" class="form-control" required="true" pattern=".+"}}
+      </div>
+    </div>
+    <div class="text-center col-xs-12"><button  type="submit" class="btn btn-success" value="Login">Register</button></div>
+
+
+
+  </form>
+<h4>*=Required</h4>
+</div>
+</div>
+</div>
+
+<div class="col-xs-2"></div>
+
+</script>
+
+<script type="text/x-handlebars" id="us/allForms">
   <div class="tab-pane active" id="all">
   <br>
   <div class="clearfix">
@@ -107,7 +201,7 @@
 
 </script>
 
-<script type="text/x-handlebars" id="draftForms">
+<script type="text/x-handlebars" id="us/draftForms">
   <div class="tab-pane active" id="draft">
   <br>
   <div class="clearfix">
@@ -190,7 +284,7 @@
 </script>
 
 
-<script type="text/x-handlebars" id="updatedFormsReport">
+<script type="text/x-handlebars" id="us/updatedFormsReport">
   <div class="tab-pane active" id="updatedForms">
   <div class="clearfix">
   </div>
@@ -227,7 +321,7 @@
   </div>
 </script>
 
-<script type="text/x-handlebars" id="draftFormsReport">
+<script type="text/x-handlebars" id="us/draftFormsReport">
   <div class="tab-pane active" id="updatedForms">
   <div class="clearfix">
   </div>
@@ -264,15 +358,23 @@
   </div>
 </script>
 
+<script type="text/x-handlebars" id="rclick-menu">
+  <div class="rmenu">
+    {{name}}
+  </div>
+</script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
-  <script src="js/libs/handlebars-1.1.2.js"></script>
-  <script src="js/libs/ember-1.7.0.js"></script>
+  <script src="js/libs/handlebars-v1.3.0.js"></script>
+  <script src="js/libs/ember-1.8.1.js"></script>
   <script src="js/libs/ember-data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/views/FilterTextBoxView.js"></script>
   <script src="js/views/TooltipLinkView.js"></script>
   <script src="js/libs/bootstrap.js"></script>
+  <script src="js/libs/statesData.js"></script>
+<!--  <script src="js/libs/leaflet.js"></script>-->
+  <script src="js/libs/d3.js"></script>
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>
 </body>

@@ -78,26 +78,265 @@ var attr=DS.attr;
   });
 
   App.Router.map(function() {
-    this.route("updatedFormsReport")
-    this.route("allForms",{path:"/"})
-    this.route("draftForms")
-    this.route("draftFormsReport")
+
+    this.resource("us",function(){
+      this.route("updatedFormsReport")
+      this.route("allForms")
+      this.route("draftForms")
+      this.route("draftFormsReport")
+
+    })
+    this.route("signIn")
+    this.route("signUp")
+    this.route("test")
+    this.resource("states",function(){
+
+    })
+
 
   });
 
-  App.UpdatedFormsReportRoute=Ember.Route.extend({
+App.AuthController=Ember.Controller.extend({
+
+})
+
+App.LoginRoute=Ember.Route.extend({
+  actions:{
+    login:function(){
+      jQuery.ajax({
+        url:"/login",
+        data:{userName:this.controller.get("userName"),password:this.controller.get("password")},
+        method:"POST",
+        success:function(){
+
+        },
+        error:function(){
+
+        }
+      })
+    }
+  }
+})
+
+App.SignUpRoute=Ember.Route.extend({
+  actions:{
+    register:function(){
+      jQuery.ajax({
+        url:"/register",
+        data:{userName:this.controller.get("userName"),password:this.controller.get("password")},
+        method:"POST",
+        success:function(){
+
+        },
+        error:function(){
+
+        }
+      })
+    }
+  }
+})
+
+  App.TestView=Ember.View.extend({
+    didInsertElement:function(){
+      var dataset = [
+                  [ 5,     20 ],
+                  [ 480,   90 ],
+                  [ 250,   50 ],
+                  [ 100,   33 ],
+                  [ 330,   95 ],
+                  [ 410,   12 ],
+                  [ 475,   44 ],
+                  [ 25,    67 ],
+                  [ 85,    21 ],
+                  [ 220,   88 ]
+              ];
+      var w = 500;
+      var h = 200;
+      var barPadding=1;
+      var padding = 20;
+      var xScale = d3.scale.linear()
+                    .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+                    .range([padding, w-padding]);
+     var yScale = d3.scale.linear()
+                    .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+                    .range([h-padding,padding]);
+    var xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom");
+      var svg = d3.select("#test")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height", h)
+      svg.selectAll("circle")  // <-- No longer "rect"
+       .data(dataset)
+       .enter()
+       .append("circle")
+       .attr("cx", function(d) {
+            return xScale(d[0]);
+       })
+       .attr("cy", function(d) {
+            return yScale(d[1]);
+       })
+       .attr("r", 5);
+      svg.append("g")
+      .call(xAxis);
+
+
+    }
+  })
+
+  App.StatesIndexView=Ember.View.extend({
+    lastHoverTime:0,
+    hoverView:null,
+    didInsertElement:function(){
+      var view=this;
+      //$("#map").mouseover(function(event){
+      //  view.get("hoverView").destroy()
+      //})
+    var sampleSVG = d3.select("#map")
+        .append("svg")
+        .attr("width", 1000)
+        .attr("height", 1000);
+
+        var path = d3.geo.path();
+        var color = d3.scale.quantize()
+                    .range(["rgb(237,248,233)", "rgb(186,228,179)",
+                     "rgb(116,196,118)", "rgb(49,163,84)","rgb(0,109,44)"]);
+        d3.csv("csv/agriculture.csv", function(data) {
+          color.domain([
+            d3.min(data, function(d) { return d.value; }),
+            d3.max(data, function(d) { return d.value; })
+          ]);
+          d3.json("json/states.json", function(json) {
+
+        //Merge the ag. data and GeoJSON
+        //Loop through once for each ag. data value
+          for (var i = 0; i < data.length; i++) {
+
+              //Grab state name
+              var dataState = data[i].state;
+
+              //Grab data value, and convert from string to float
+              var dataValue = parseFloat(data[i].value);
+
+              //Find the corresponding state inside the GeoJSON
+              for (var j = 0; j < json.features.length; j++) {
+
+              var jsonState = json.features[j].properties.name;
+
+              if (dataState == jsonState) {
+
+                  //Copy the data value into the JSON
+                  json.features[j].properties.value = dataValue;
+
+                  //Stop looking through the JSON
+                  break;
+
+                  }
+              }
+          }
+          sampleSVG.selectAll("path")
+             .data(json.features)
+             .enter()
+             .append("path")
+             .attr("d", path)
+             .attr("data-toggle","tooltip")
+             .style("fill", function(d) {
+                                //Get data value
+                                var value = d.properties.value;
+
+                                if (value) {
+                                        //If value exists…
+                                        return color(value);
+                                } else {
+                                        //If value is undefined…
+                                        return "#ccc";
+                                }
+                              })
+             .on("mouseover", function(d){
+
+                 var cx = d3.mouse(this)[0];
+                 var cy = d3.mouse(this)[1];
+                 if(view.get("hoverView")){
+                   view.get("hoverView").destroy()
+                 }
+                 view.set("hoverView",view.createChildView(App.RClickMenuComponent,{x:cx,y:cy,name:d.properties.name}))
+                 view.get("hoverView").append()
+                 view.set("lastHoverTime",new Date().getTime()/1000)
+
+
+               d3.select(this).style("fill", "steelblue" );
+               event.stopPropagation();
+              })
+             .on("mouseout", function(){d3.select(this).style("fill", function(d) {
+                                //Get data value
+
+                                  view.get("hoverView").destroy()
+
+                                var value = d.properties.value;
+
+                                if (value) {
+                                        //If value exists…
+                                        return color(value);
+                                } else {
+                                        //If value is undefined…
+                                        return "#ccc";
+                                }
+                              });})
+              .on("click",function(event){
+                window.location.href="http://www.google.com"
+              })
+
+        })
+
+
+
+
+
+    })
+  }
+})
+
+App.RClickMenuComponent = Ember.Component.extend({
+  didInsertElement:function(){
+    var view=this;
+    console.log(view.get("name"))
+        console.log($("svg").position())
+    var svgTop=$("svg").position().top
+    var svgLeft=$("svg").position().left
+    $(".rmenu").css("top",view.get("y")+svgTop);
+    $(".rmenu").css("left",view.get("x")+svgLeft);
+    var mousedownHandler=function(event){
+      if(event.button==2){
+        view.destroy()
+        $("body").unbind("mousedown",mousedownHandler)
+        $("body").unbind("click",clickHandler)
+      }
+    }
+    var clickHandler=function(){
+      view.destroy()
+      $("body").unbind("click",clickHandler)
+      $("body").unbind("mousedown",mousedownHandler)
+    }
+    $("body").on("mousedown",mousedownHandler)
+    $("body").on("click",clickHandler)
+  },
+  layoutName:"rclick-menu"
+})
+
+  App.UsUpdatedFormsReportRoute=Ember.Route.extend({
     model:function(){
       return this.store.find("formReportItem",{year:2014,group:"1065"})
     }
   })
 
-  App.DraftFormsReportRoute=Ember.Route.extend({
+  App.UsDraftFormsReportRoute=Ember.Route.extend({
     model:function(){
       return this.store.find("draftFormReportItem",{year:2014,group:"1065"})
     }
   })
 
-  App.DraftFormsReportController=Ember.ArrayController.extend({
+  App.UsDraftFormsReportController=Ember.ArrayController.extend({
     formReportYear:2014,
     possibleReports:["1065","1120","1040","1120-S"],
     actions:{
@@ -125,7 +364,7 @@ var attr=DS.attr;
     }.observes("selectedReport")
   })
 
-  App.AllFormsController=Ember.ArrayController.extend({
+  App.UsAllFormsController=Ember.ArrayController.extend({
     formCount:function(){
 
       return this.get("content.content").length
@@ -238,12 +477,12 @@ var attr=DS.attr;
   })
 
 
-  App.DraftFormsView=Ember.View.extend({
+  App.UsDraftFormsView=Ember.View.extend({
     didInsertElement:function(){
     }
   })
 
-  App.DraftFormsController=Ember.ArrayController.extend({
+  App.UsDraftFormsController=Ember.ArrayController.extend({
     formCount:function(){
 
       return this.get("content.content").length
@@ -356,7 +595,7 @@ var attr=DS.attr;
   })
 
 
-  App.DraftFormsRoute = Ember.Route.extend({
+  App.UsDraftFormsRoute = Ember.Route.extend({
     model: function() {
       return this.store.find("draftForm")
     },
@@ -396,7 +635,7 @@ var attr=DS.attr;
     }
   });
 
-  App.AllFormsRoute = Ember.Route.extend({
+  App.UsAllFormsRoute = Ember.Route.extend({
     model: function() {
       return this.store.find("link")
     },

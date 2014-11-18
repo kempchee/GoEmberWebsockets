@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"github.com/gorilla/securecookie"
 	//"github.com/kempchee/GoEmber/handlers"
 )
 
@@ -22,6 +23,11 @@ var (
 	session              *mgo.Session
 	finalFormsCollection *mgo.Collection
 	draftFormsCollection *mgo.Collection
+	userCollection *mgo.Collection
+	secureCookieInstance *securecookie.SecureCookie
+	hashKey  []byte
+	blockKey []byte
+
 )
 
 type DraftForm struct {
@@ -33,6 +39,12 @@ type DraftForm struct {
 	AnnualUpdate bool          `bson:"AnnualUpdate" json:"annual_update"`
 	Superceded   bool          `bson:"Superceded" json:"superceded"`
 	Id           bson.ObjectId `bson:"_id" json:"id"`
+}
+
+type User struct{
+	UserName string `bson:"UserName" json:"userName"`
+	Email string `bson:"Email" json:"email"`
+	Password string `bson:"Password" json:"password"`
 }
 
 type DraftForms struct {
@@ -87,6 +99,30 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
+func RegisterHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var newUser User;
+	r.ParseForm()
+	userName := r.PostForm["userName"][0]
+	password := r.PostForm["password"][0]
+	log.Println(userName)
+	log.Println(password)
+	newUser.UserName=userName
+	newUser.Password=password
+	userCollection.Insert(&newUser)
+	jsonUser, _ := json.Marshal(newUser)
+	if encoded, err := secureCookieInstance.Encode("TaxFormsSession", newUser); err == nil {
+        cookie := &http.Cookie{
+            Name:  "TaxFormsSession",
+            Value: encoded,
+            Path:  "/",
+        }
+        http.SetCookie(w, cookie)
+    }
+	w.Write([]byte(jsonUser))
+
+}
+
 func SocketsHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -116,8 +152,13 @@ func main() {
 	session.SetMode(mgo.Monotonic, true)
 	finalFormsCollection = session.DB("irsForms").C("finalForms")
 	draftFormsCollection = session.DB("irsForms").C("draftForms")
+	userCollection = session.DB("irsForms").C("users")
+	hashKey = []byte(securecookie.GenerateRandomKey(32))
+	blockKey = []byte(securecookie.GenerateRandomKey(32))
+	secureCookieInstance = securecookie.New(hashKey, blockKey)
 
 	r := mux.NewRouter()
+	r.HandleFunc("/register",RegisterHandler)
 	r.HandleFunc("/sockets", SocketsHandler)
 	r.HandleFunc("/links", getLinksHandler).Methods("GET")
 	r.HandleFunc("/updateLinks", UpdateLinksHandler).Methods("POST")

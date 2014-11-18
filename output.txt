@@ -1,0 +1,355 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+<html>
+	<head>		
+              
+		<script src="/app/picklist/scripts/common.js;jsessionid=rnlnIEQmTycqONgF-nLyWg__" type="text/javascript"></script>
+
+
+
+<title>Draft Tax Forms</title>
+
+
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+
+	<link rel="shortcut icon" href="/static_assets/img/icons/favicon.ico">
+	<link rel="P3Pv1" href="/w3c/p3p.xml">
+	<link rel="stylesheet" href="/static_assets/css/layout.css">
+	<link rel="stylesheet" href="/static_assets/css/main.css">
+	<script type="text/javascript" src="/static_assets/js/reporting/iep-reporting.js"></script>
+	
+
+</head>
+<body onload="setDivHeight()">
+	<div id="main">
+		<!--googleoff: all-->
+		<div class="header">
+			<a href="http://www.irs.gov/" class="logo">
+				<img src="/static_assets/img/logo.png"
+					 title="Internal Revenue Service United States Department of the Treasury"
+					 alt="Internal Revenue Service United States Department of the Treasury">
+			</a>
+		</div>
+		<div class="hr"><hr></div>
+		<!--googleon: all-->
+		<div class="body" id="body">
+
+			<div class="leftnav" id="leftNavDiv">
+				<!--googleoff: all-->
+
+				<!-- Left navigation links -->
+
+				<!--googleon: all-->
+			</div>
+
+			<div class="content">
+
+
+
+
+
+<div id="picklistContentPane">
+<div class="pageLabel">Draft Tax Forms</div>
+
+<div class="instructionsBaseIRS">
+	<table>
+		<tr>
+			<td class="bold">Instructions:</td>
+			<td class="bold">Tips:</td>
+			<td class="bold">More Information:</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<ol>
+					<li>Enter a term in the Find Box.</li>
+					<li>Select a category (column heading) in the drop down.</li>
+					<li>Click Find.</li>
+				</ol>
+			</td>
+			<td valign="top">
+				<ul>
+					<li>Click on the product number in each row to view/download.</li>
+					<li>Click on column heading to sort the list.</li>
+					<li>You may be able to 
+					<a href="/app/scripts/mapper.jsp?page=pickList_enter_information_link">enter information</a>
+					 on forms before saving or printing.</li>
+				</ul>	
+			</td>
+			<td valign="top">
+				
+
+		<ul>
+			<li><a href="/app/scripts/mapper.jsp?page=pickList_download_printing_link">Downloading&nbsp;and&nbsp;printing</a></li>
+			<li><a href="/app/scripts/mapper.jsp?page=pickList_file_formats_link">File&nbsp;formats</a></li>
+			<li><a href="/app/scripts/mapper.jsp?page=pickList_view_save_doc_link">View&nbsp;and/or&nbsp;save&nbsp;documents</a></li>
+		</ul>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+
+
+
+<div class=picklistFormDTF>
+<form method="GET" action="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__"/>
+<table>
+<tr>
+	<td><b><label for="searchFor">Find</label></b></td>
+	<td><INPUT ID="searchFor" TYPE=text VALUE="" NAME="value" SIZE="20" maxlength="30"></td>
+	<td><b><label for="criteria">in</label></b></td>
+	<td>
+			<select name="criteria" >
+
+			
+									
+				
+					<option value="formNumber">Product Number</option>
+				
+			
+
+			
+				
+				
+					<option value="title">Title</option>
+				
+			
+
+			
+				
+				
+					<option value="currentYearRevDateString">Revision Date</option>
+				
+			
+
+		</select>
+	</td>
+	<td>	
+		<input name="submitSearch" type="submit" value="Find" >
+	</td>
+	<td>
+		
+		<a href="/app/scripts/mapper.jsp?page=pickList_search_help">Find&nbsp;Help</a>
+	</td>
+</tr>
+</table>
+</form>
+</div>
+
+
+
+
+
+
+
+	<div class="noResults">
+		<hr>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+<div class=picklistTable>
+<table class="picklist-dataTable">
+  <tr>
+    <th class="FormNumber" scope="col">
+      <b>
+        
+        
+		
+        
+       		
+          
+          
+          
+          
+       	
+        
+        <a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+		"><span class="picklistColumnHeader">Product Number</span></a>
+			
+        		
+					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=sortOrder&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+					"><img src="/app/picklist/images/ascendingArrows.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__" alt="Sorted Ascending" title="Sorted Ascending" /></a>
+				
+				
+			
+
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsFormNumber.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsFormNumber.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__' alt="Help on Form Number" title="Help on Form Number" />
+        </a>
+      </b>
+    </th>
+    <th class="Title" scope="col">
+      <b>
+        
+        
+		
+        
+       	
+
+        <a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+			"><span class="picklistColumnHeader">Title</span></a>
+			
+        		
+				
+					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=title&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__" alt="Not sorted" title="Not sorted" /></a>
+				
+			
+
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsTitle.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsTitle.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__' alt="Help on Title" title="Help on Title" />
+        </a>
+       </b>
+    </th>
+    <th class="CurrentYear" scope="col">
+      <b>
+        
+        
+		
+        
+       	
+
+       	<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+		"><span class="picklistColumnHeader">Revision Date</span></a>
+			
+        		
+				
+       				<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=currentYearRevDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=false
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__" alt="Not sorted" title="Not sorted" /></a>
+				
+			
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsCurrentYearRevDate.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsCurrentYearRevDate.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__' alt="Help on Revision Date" title="Help on Revision Date" />
+        </a>
+       </b>
+    </th>
+    <th class="DateColumn" scope="col">
+      <b>
+              
+        
+		
+        
+       	
+
+       	<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+		"><span class="picklistColumnHeader">Posted Date</span></a>
+			
+        		
+				
+					<a href="/app/picklist/list/draftTaxForms.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__?sortColumn=postedDate&amp;indexOfFirstRow=0&amp;value=&amp;criteria=&amp;resultsPerPage=25&amp;isDescending=true
+					"><img src="/app/picklist/images/neutralArrows.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__" alt="Not sorted" title="Not sorted" /></a>
+				
+			
+        
+		<a onclick="returnLink('/app/picklist/help/draftTaxFormsPostedDate.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__', 520, 470); return false;" target="winhelp" style="A.help:hover; cursor:help; " href="/app/picklist/help/draftTaxFormsPostedDate.html;jsessionid=rnlnIEQmTycqONgF-nLyWg__" >
+          <img src='/app/picklist/images/questionMark.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__' alt="Help on Posted Date" title="Help on Posted Date" />
+        </a>
+       </b>
+    </th>
+  </tr>
+ 
+
+
+</table>
+
+</div>
+
+
+
+
+
+	
+		
+<div class="errorBlock">
+<p id="errorText">No results were found that match your entry in the "Find" field. <br>
+You may want to shorten your entry and try again (for example, enter 17 instead of Pub 17), or use the <a href="http://search.irs.gov/search?q=&output=xml_no_dtd&proxystylesheet=irs_portals_frontend&client=irs_portals_frontend&oe=UTF-8&ie=UTF-8&num=10&ud=1&exclude_apps=1&site=default_collection&numgm=5&requiredfields=-archive%3A1&rfr=picklist">site search</a>.
+</p>
+
+</div>
+
+ 
+
+
+	
+
+
+
+
+
+
+<div class="page-bottom">
+	<hr />
+</div>
+
+<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com"><img src='/app/picklist/images/get_adobe_reader.gif;jsessionid=rnlnIEQmTycqONgF-nLyWg__' alt="Official Adobe Website" title="Official Adobe Website"/></a>
+<br>
+<a href="/app/scripts/exit.jsp?dest=http://www.adobe.com">Get Adobe &#174; Reader</a>
+
+
+
+
+</div>
+
+
+			</div> <!-- content -->
+		</div> <!-- body -->
+		<!--googleoff: all-->
+		<div class="push"></div>
+	</div> 	<!-- main -->
+
+	<div class="footer" id="footerDiv">
+		<div class="legal">
+		</div>
+	</div>
+	
+	<!-- Start GA AutoTracker Code -->
+		<script type="text/javascript" src="/static_assets/js/reporting/AutoTracker.js"></script>
+		<script type="text/javascript">
+			addLinkerEvents();
+		</script>
+	<!-- End AutoTracker Code -->
+
+</body>
+
+
+</html>
